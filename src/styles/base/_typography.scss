@@ -1,0 +1,7 @@
+// Typography
+h1 {
+  font-size: rem-calc(36);
+  margin: 0 0 rem-calc(30);
+
+  @include primary-font-bold;
+}

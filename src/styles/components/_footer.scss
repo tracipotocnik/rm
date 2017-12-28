@@ -1,0 +1,42 @@
+// Footer
+.footer {
+  align-items: center;
+  background: $black;
+  bottom: 0;
+  color: $white;
+  display: flex;
+  font-size: rem-calc(16);
+  height: rem-calc($footer-height);
+  padding: rem-calc(0 10 0 20);
+  position: absolute;
+  width: 100%;
+}
+
+.footer__nav {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.footer__nav__item {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.footer__nav__link {
+  color: inherit;
+  display: block;
+  padding: rem-calc(10 30 15);
+
+  &:hover,
+  &:focus {
+    color: $pinkish-gray;
+  }
+}
+
+.footer__copyright {
+  color: $pinkish-gray;
+  margin: 0 0 0 auto;
+  padding: rem-calc(0 0 5);
+}

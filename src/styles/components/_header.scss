@@ -1,0 +1,36 @@
+// Header
+.header {
+  align-items: center;
+  background: $color-primary;
+  color: $white;
+  display: flex;
+  font-size: rem-calc(16);
+  line-height: 1;
+  padding: rem-calc(30 40 16);
+}
+
+.header__logo {
+  color: inherit;
+
+  &:hover,
+  &:focus {
+    color: inherit;
+  }
+}
+
+.header__logo__image {
+  display: inline-block;
+  position: relative;
+  top: rem-calc(-8);
+}
+
+.header__logo__text {
+  display: inline-block;
+  padding-left: rem-calc(30);
+  position: relative;
+  top: rem-calc(3);
+}
+
+.header__nav {
+  margin-left: auto;
+}

@@ -1,0 +1,32 @@
+// Nav
+.nav {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__item {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__link {
+  border-top: 3px solid transparent;
+  display: block;
+  color: inherit;
+  padding: rem-calc(22 15);
+  margin: rem-calc(0 5);
+
+  &:hover,
+  &:focus,
+  &.router-link-exact-active {
+    border-color: $white;
+    color: inherit;
+    outline: none;
+  }
+
+  &.router-link-exact-active {
+    @include primary-font-bold;
+  }
+}

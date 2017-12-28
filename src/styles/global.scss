@@ -1,8 +1,26 @@
-// Source Sans Pro font
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600');
 // Init Foundation
-@include foundation-everything(true); 
+@include foundation-everything(true);
 // Load icon fonts
-@import './icons';
+@import './base/icons';
+// Load font mixings
+@import './base/fonts';
 // Import Motion UI
 @import '~motion-ui/dist/motion-ui';
+
+/*================ COMMON ================*/
+@import './base/layout';
+@import './base/typography';
+@import './base/buttons';
+@import './base/helper-classes';
+@import './base/forms';
+
+/*================ COMPONENTS ================*/
+@import './components/box';
+@import './components/footer';
+@import './components/header';
+@import './components/nav';
+
+/*================ VENDOR ================*/
+@import './vendor/slick';
+
+/*================ VENDOR OVERRIDES ================*/

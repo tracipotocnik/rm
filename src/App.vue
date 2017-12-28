@@ -1,99 +1,57 @@
+<!-- src/App.vue -->
+
 <template>
   <div id="app">
-    <div class="off-canvas position-right" id="offCanvas" data-off-canvas>
-      <ul class="sidebar-menu" data-close="offCanvas">
-        <li><router-link to="/" exact>Home</router-link></li>
-        <li><router-link to="/reveal" exact>Reveal</router-link></li>
-        <li><router-link to="/slider" exact>Slider</router-link></li>
-        <li><router-link to="/tooltip" exact>Tooltip</router-link></li>
-        <li><router-link to="/dropdown-menu" exact>Dropdown Menu</router-link></li>
-        <li><router-link to="/drilldown-menu" exact>Drilldown Menu</router-link></li>
-        <li><router-link to="/accordion-menu" exact>Accordion Menu</router-link></li>
-        <li><router-link to="/magellan" exact>Magellan</router-link></li>
-        <li><router-link to="/accordion" exact>Accordion</router-link></li>
-        <li><router-link to="/dropdown" exact>Dropdown</router-link></li>
-        <li><router-link to="/tabs" exact>Tabs</router-link></li>
-        <li><router-link to="/orbit" exact>Orbit</router-link></li>
-      </ul>          
+    <header class="header">
+      <a class="header__logo" href="/">
+        <img class="header__logo__image" src="./assets/img/logo.png" alt="Route Market">
+        <span class="header__logo__text">RouteMarket</span>
+      </a>
+      <nav class="header__nav">
+        <ul class="nav">
+          <li class="nav__item"><router-link to="/" class="nav__link">Home</router-link></li>
+          <li class="nav__item"><router-link to="/shippers" class="nav__link">Shippers</router-link></li>
+          <li class="nav__item"><router-link to="/carriers" class="nav__link">Carriers</router-link></li>
+          <li class="nav__item"><router-link to="/learn-more" class="nav__link">Learn More</router-link></li>
+          <li class="nav__item"><router-link to="/learn-more" v-if="!user.authenticated" class="nav__link">Sign Up</router-link></li>
+          <li class="nav__item"><router-link :to="{ name: 'login'}" v-if="!user.authenticated" class="nav__link">Login</router-link></li>
+          <li v-if="user.authenticated"><a v-link="'login'" @click="logout()" class="nav__link">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="container">
+      <router-view></router-view>
     </div>
-    <div class="off-canvas-content grid-container full" data-off-canvas-content>
-      <div class="top-bar grid-x">
-        <div class="cell small-6 shrink">
-          <ul class="menu">
-            <li class="logo">
-              <router-link to="/">Vue-Foundation</router-link>
-            </li>
-          </ul>
-        </div>
-        <div class="cell small-6 shrink">
-          <ul class="menu expanded">
-            <li>
-              <a class="button small menu-button" data-toggle="offCanvas">Menu</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="content-wrapper">
-        <router-view></router-view>
-      </div>
-    
-    </div>
+    <footer class="footer">
+      <ul class="footer__nav">
+        <li class="footer__nav__item"><router-link to="/more-info" class="footer__nav__link">More Information</router-link></li>
+        <li class="footer__nav__item"><router-link to="/get-app" class="footer__nav__link">Get the App</router-link></li>
+        <li class="footer__nav__item"><router-link to="/contact" class="footer__nav__link">Contact Us</router-link></li>
+      </ul>
+      <p class="footer__copyright">
+        Copyright &copy; {{ new Date().getFullYear() }}, RouteMarket Inc. All rights reserved.​​
+      </p>
+    </footer>
   </div>
 </template>
 
 <script>
+import auth from './js/auth';
+
 export default {
-  name: 'app',
-  mounted() {
-    this.offCanvas = new Foundation.OffCanvas($('#offCanvas'));
+  data() {
+    return {
+      user: auth.user,
+    };
+  },
+  methods: {
+    logout() {
+      auth.logout();
+    },
   },
 };
 </script>
 
-
-
-<style lang="scss">  
+<style lang="scss">
   @import './styles/global';
-  
-  // Chrome Reset 
-  a:focus {
-    outline: none;
-  }
-
-  .logo, .logo a {
-    color: $white;
-    font-weight: normal;
-    background-color: inherit;
-  }
-
-  .top-bar,.top-bar ul {
-    background-color: #41b883;
-  }
-
-  li a.menu-button {
-    border-radius: 20px;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem; 
-    font-weight: 600;
-    text-transform: uppercase;
-    display: inline-block;
-    float: right;
-  }
-
-  .content-wrapper {
-    padding: 0.75rem 0;
-  }
-
-  .sidebar-menu {
-    @include menu-base();
-    @include menu-direction(vertical);
-    a {
-      color: $secondary-color;
-      font-weight: normal;
-    }
-    a.active {
-      font-weight: 600;
-      color: $primary-color;
-    }
-  }
 </style>

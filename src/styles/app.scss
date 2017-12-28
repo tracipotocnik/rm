@@ -2,6 +2,10 @@
 // https://github.com/vuejs/vue-loader/issues/328
 
 // Load custom Foundation variables
-@import "./settings";
+@import './settings/settings';
+// Load variables
+@import './settings/variables';
 // Load Foundation
-@import "~foundation-sites/scss/foundation";
+@import '~foundation-sites/scss/foundation';
+// Load mixins
+@import './tools/mixins';

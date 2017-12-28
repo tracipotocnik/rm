@@ -1,0 +1,17 @@
+// Layout
+body {
+  background-image: linear-gradient(71deg, $black, $grape-purple 31%, $grape-purple 77%, $blueberry);
+  color: $color-primary;
+  min-height: 100vh;
+  position: relative;
+
+  @include primary-font;
+}
+
+.container {
+  padding: rem-calc(50 0 (50 + $footer-height));
+}
+
+a {
+  transition: all $transition-default;
+}

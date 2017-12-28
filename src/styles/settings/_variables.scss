@@ -1,0 +1,49 @@
+/*================ Color Variables ================*/
+$white: #fff;
+$white-90: rgba(243, 243, 243, 0.9);
+$off-white: #f5f5f5;
+$black: #000;
+$black-50: rgba(0, 0, 0, 0.5);
+$pinkish-gray: #bfbfbf;
+$grape-purple: #3e1a5d;
+$blueberry: #58418d;
+$cloudy-blue: #cec7d5;
+$red-pink: #f51a5d;
+$faded-pink: #e7bbc8;
+
+// Color Hierarchy
+$color-primary: $grape-purple;
+
+// Background colors
+$color-body: $white;
+
+// Text colors
+$color-body-text: #000;
+
+// Border colors
+$color-border: $color-primary;
+
+// Helper colors for form error states
+$color-disabled: $pinkish-gray;
+$color-disabled-border: $pinkish-gray;
+$color-error: $red-pink;
+$color-error-bg: $faded-pink;
+$color-success: #000;
+$color-success-bg: #000;
+
+$color-link: black;
+$color-link-hover: red;
+
+/*================ Typography Variables ================*/
+$font-size-base: 16px;
+
+/*================ Grid ================*/
+
+/*================ Height ================*/
+$footer-height: 50;
+
+/*================ Transitions ================*/
+$transition-default: 0.3s ease-out;
+
+/*================ Z-Index ================*/
+$z-index-skip-to-content: 10000; // really high to be safe of app markup

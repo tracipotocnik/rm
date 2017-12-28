@@ -1,0 +1,83 @@
+@font-face {
+  font-family: 'Helvetica-Bold';
+  src: url('./assets/fonts/Helvetica-Bold.eot');
+  src: url('./assets/fonts/Helvetica-Bold.woff2') format('woff2'),
+       url('./assets/fonts/Helvetica-Bold.woff') format('woff'),
+       url('./assets/fonts/Helvetica-Bold.ttf') format('truetype'),
+       url('./assets/fonts/Helvetica-Bold.svg#Helvetica-Bold') format('svg'),
+       url('./assets/fonts/Helvetica-Bold.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica-BoldOblique';
+  src: url('./assets/fonts/Helvetica-BoldOblique.eot');
+  src: url('./assets/fonts/Helvetica-BoldOblique.woff2') format('woff2'),
+       url('./assets/fonts/Helvetica-BoldOblique.woff') format('woff'),
+       url('./assets/fonts/Helvetica-BoldOblique.ttf') format('truetype'),
+       url('./assets/fonts/Helvetica-BoldOblique.svg#Helvetica-BoldOblique') format('svg'),
+       url('./assets/fonts/Helvetica-BoldOblique.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica-Light';
+  src: url('./assets/fonts/Helvetica-Light.eot');
+  src: url('./assets/fonts/Helvetica-Light.woff2') format('woff2'),
+       url('./assets/fonts/Helvetica-Light.woff') format('woff'),
+       url('./assets/fonts/Helvetica-Light.ttf') format('truetype'),
+       url('./assets/fonts/Helvetica-Light.svg#Helvetica-Light') format('svg'),
+       url('./assets/fonts/Helvetica-Light.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica-LightOblique';
+  src: url('./assets/fonts/Helvetica-LightOblique.eot');
+  src: url('./assets/fonts/Helvetica-LightOblique.woff2') format('woff2'),
+       url('./assets/fonts/Helvetica-LightOblique.woff') format('woff'),
+       url('./assets/fonts/Helvetica-LightOblique.ttf') format('truetype'),
+       url('./assets/fonts/Helvetica-LightOblique.svg#Helvetica-LightOblique') format('svg'),
+       url('./assets/fonts/Helvetica-LightOblique.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica-Oblique';
+  src: url('./assets/fonts/Helvetica-Oblique.eot');
+  src: url('./assets/fonts/Helvetica-Oblique.woff2') format('woff2'),
+       url('./assets/fonts/Helvetica-Oblique.woff') format('woff'),
+       url('./assets/fonts/Helvetica-Oblique.ttf') format('truetype'),
+       url('./assets/fonts/Helvetica-Oblique.svg#Helvetica-Oblique') format('svg'),
+       url('./assets/fonts/Helvetica-Oblique.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('./assets/fonts/Helvetica.eot');
+  src: url('./assets/fonts/Helvetica.woff2') format('woff2'),
+       url('./assets/fonts/Helvetica.woff') format('woff'),
+       url('./assets/fonts/Helvetica.ttf') format('truetype'),
+       url('./assets/fonts/Helvetica.svg#Helvetica') format('svg'),
+       url('./assets/fonts/Helvetica.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+$font-primary: 'Helvetica', sans-serif;
+$font-primary-bold: 'Helvetica-Bold', sans-serif;
+
+@mixin primary-font() {
+  font-family: $font-primary;
+  font-weight: 400;
+}
+@mixin primary-font-bold() {
+  font-family: $font-primary-bold;
+  font-weight: 400;
+}

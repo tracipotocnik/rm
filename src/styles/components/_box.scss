@@ -1,0 +1,9 @@
+// Box
+.box {
+  background: $white-90;
+  box-shadow: 0 2px 8px 0 $black-50;
+  margin: rem-calc(100) auto 0;
+  max-width: 100%;
+  padding: rem-calc(30 60 40);
+  width: rem-calc(860);
+}
