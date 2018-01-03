@@ -17,9 +17,9 @@ export default {
     const url = API_URL + LOGIN_URL + creds.username;
 
     fetch(url, {
-      method: 'GET',
+      mode: 'no-cors',
       headers: {
-        Accept: 'application/json',
+        Accept: 'application/javascript',
         Authorization: `Basic ${auth.setBasicAuthentication(creds)}`,
       },
     })
