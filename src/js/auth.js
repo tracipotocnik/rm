@@ -19,7 +19,7 @@ export default {
     fetch(url, {
       mode: 'no-cors',
       headers: {
-        Accept: 'application/javascript',
+        Accept: 'application/json',
         Authorization: `Basic ${auth.setBasicAuthentication(creds)}`,
       },
     })
