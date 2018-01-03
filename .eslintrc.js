@@ -42,6 +42,7 @@ module.exports = {
   },
   globals: {
     'Foundation': false,
-    '$': false
+    '$': false,
+    'google': false,
   }
 }

@@ -13,9 +13,16 @@
           <li class="nav__item"><router-link to="/shippers" class="nav__link">Shippers</router-link></li>
           <li class="nav__item"><router-link to="/carriers" class="nav__link">Carriers</router-link></li>
           <li class="nav__item"><router-link to="/learn-more" class="nav__link">Learn More</router-link></li>
-          <li class="nav__item"><router-link to="/learn-more" v-if="!user.authenticated" class="nav__link">Sign Up</router-link></li>
-          <li class="nav__item"><router-link :to="{ name: 'login'}" v-if="!user.authenticated" class="nav__link">Login</router-link></li>
-          <li v-if="user.authenticated"><a v-link="'login'" @click="logout()" class="nav__link">Logout</a></li>
+          <li class="nav__item" v-show="!isLoggedIn()">
+            <router-link to="/learn-more" class="nav__link">Sign Up</router-link>
+          </li>
+          <li class="nav__item" v-show="!isLoggedIn()">
+            <router-link :to="{ name: 'login'}" class="nav__link">Login</router-link>
+            </li>
+          <li class="nav__item" v-show="isLoggedIn()">
+            <a @click="handleLogout()" class="nav__link">Logout</a>
+          </li>
+
         </ul>
       </nav>
     </header>
@@ -39,14 +46,12 @@
 import auth from './js/auth';
 
 export default {
-  data() {
-    return {
-      user: auth.user,
-    };
-  },
   methods: {
-    logout() {
+    handleLogout() {
       auth.logout();
+    },
+    isLoggedIn() {
+      return auth.isLoggedIn();
     },
   },
 };

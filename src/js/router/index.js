@@ -1,18 +1,32 @@
 import Vue from 'vue';
-import Router from 'vue-router';
+import VueRouter from 'vue-router';
+// import { requireAuth } from '../utils/auth';
 
 // Components
 import Home from '@/components/Home';
 import Login from '@/components/Login';
+import Shippers from '@/components/Shippers';
 
-Vue.use(Router);
+Vue.use(VueRouter);
 
-export default new Router({
+export default new VueRouter({
   mode: 'history',
-  linkActiveClass: 'active',
   routes: [
     // routes
-    { name: 'home', path: '/', component: Home },
-    { name: 'login', path: '/login', component: Login },
+    {
+      name: 'home',
+      path: '/',
+      component: Home,
+    },
+    {
+      name: 'login',
+      path: '/login',
+      component: Login,
+    },
+    {
+      name: 'shippers',
+      path: '/shippers',
+      component: Shippers,
+    },
   ],
 });

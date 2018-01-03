@@ -50,8 +50,7 @@ select {
   &:focus {
     background-color: $cloudy-blue;
     border: 2px solid $color-border;
-    padding-bottom: rem-calc(9);
-    padding-top: rem-calc(11)
+    padding: rem-calc(11 42 9);
   }
 
   &.error {
