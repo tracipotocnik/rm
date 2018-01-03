@@ -36,19 +36,31 @@ export default {
   mounted() {
     this.bounds = new google.maps.LatLngBounds();
     const element = document.getElementById(this.mapName);
+    // Instantiate a directions service.
+    const directionsService = new google.maps.DirectionsService; // eslint-disable-line new-parens
     const mapCentre = this.markerCoordinates[0];
     const options = {
       center: new google.maps.LatLng(mapCentre.latitude, mapCentre.longitude),
     };
     this.map = new google.maps.Map(element, options);
-    this.markerCoordinates.forEach((coord) => {
-      const position = new google.maps.LatLng(coord.latitude, coord.longitude);
-      const marker = new google.maps.Marker({
-        position,
-        map: this.map,
-      });
-      this.markers.push(marker);
-      this.map.fitBounds(this.bounds.extend(position));
+    // Create a renderer for directions and bind it to the map.
+    const directionsDisplay = new google.maps.DirectionsRenderer({ map: this.map });
+    directionsService.route({
+      origin: new google.maps.LatLng(
+        this.markerCoordinates[0].latitude,
+        this.markerCoordinates[0].longitude,
+      ),
+      destination: new google.maps.LatLng(
+        this.markerCoordinates[1].latitude,
+        this.markerCoordinates[1].longitude,
+      ),
+      travelMode: 'DRIVING',
+    }, (response, status) => {
+      // Route the directions and pass the response to a function to create
+      // markers for each step.
+      if (status === 'OK') {
+        directionsDisplay.setDirections(response);
+      }
     });
   },
 };
