@@ -65,7 +65,7 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
-var uri = 'http://localhost:' + port
+var uri = 'https://localhost:' + port
 
 var _resolve
 var readyPromise = new Promise(resolve => {
@@ -82,7 +82,21 @@ devMiddleware.waitUntilValid(() => {
   _resolve()
 })
 
-var server = app.listen(port)
+// setup https
+var
+  https = require('https'),
+  fs = require('fs');
+
+var pkey = fs.readFileSync(process.cwd() + '/build/localhost-ssl/localhost.key')
+var pcert = fs.readFileSync(process.cwd() + '/build/localhost-ssl/localhost.crt')
+
+var options = {
+  key: pkey,
+  cert: pcert,
+  requestCert: false,
+  rejectUnauthorized: false
+}
+var server = https.createServer(options, app).listen(port);
 
 module.exports = {
   ready: readyPromise,

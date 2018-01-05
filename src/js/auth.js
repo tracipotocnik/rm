@@ -1,7 +1,12 @@
+import Vue from 'vue';
+import VueResource from 'vue-resource';
+
 import * as constants from './constants';
 import utils from './utilities/utils';
 import auth from './utilities/auth';
 import router from './router';
+
+Vue.use(VueResource);
 
 // URL and endpoint constants
 const API_URL = `${constants.APP_BACKEND_URL}${constants.API_VERSION}`;
@@ -16,7 +21,7 @@ export default {
   login(context, creds, redirect) {
     const url = API_URL + LOGIN_URL + creds.username;
 
-    fetch(url, {
+    Vue.http.get(url, {
       headers: {
         Accept: 'application/json',
         Authorization: `Basic ${auth.setBasicAuthentication(creds)}`,
