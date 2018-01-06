@@ -1,0 +1,131 @@
+// Panels
+.panels-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.panel-container {
+  max-width: rem-calc(475);
+  padding: rem-calc(0 15);
+  width: 50%;
+}
+
+.panel {
+  background: $silver;
+  border-radius: rem-calc(8);
+  color: $grape-purple;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.panel__top {
+  margin: rem-calc(22 30 40);
+}
+
+.panel__heading {
+  font-size: rem-calc(36);
+  line-height: 1.3;
+  margin: 0 0 rem-calc(5);
+
+  @include primary-font-bold;
+}
+
+.panel__subheading {
+  margin: rem-calc(0 0 0 10);
+
+  a {
+    color: inherit;
+
+    &:hover,
+    &:focus {
+      color: $color-link-hover;
+    }
+  }
+
+  img {
+    margin-left: rem-calc(7);
+  }
+}
+
+.panel__main {
+  background: no-repeat center center;
+  background-size: cover;
+  flex: 1;
+
+  &--shipping {
+    background-image: url('assets/img/shipping-uploads-bg.jpg');
+  }
+}
+
+.panel__filter {
+  margin: rem-calc(0 30 25);
+}
+
+.panel__filter-title {
+  color: $nice-blue;
+  margin: rem-calc(10 0 0 10);
+}
+
+.panel__details {
+  margin: rem-calc(0 40 15);
+}
+
+.panel__details__pretitle {
+  margin: 0;
+}
+
+.panel__details__title {
+  font-size: rem-calc(20);
+  margin: 0;
+
+  @include primary-font-bold;
+}
+
+.panel__subdetails {
+  display: flex;
+  justify-content: space-between;
+  margin-top: rem-calc(5);
+  width: 100%;
+}
+
+.panel__subdetails__item {
+  margin: 0;
+}
+
+.panel__locations {
+  border-top: 1px solid $grape-purple;
+  display: flex;
+  margin: rem-calc(20 0);
+  padding-top: rem-calc(20);
+  width: 100%;
+}
+
+.panel__locations__item {
+  width: 50%;
+
+  p {
+    margin: 0;
+  }
+
+  + .panel__locations__item {
+    position: relative;
+    text-align: right;
+
+    &::before {
+      content: url('assets/img/arrow.svg');
+      left: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+  }
+}
+
+.panel__locations__title {
+  font-size: rem-calc(20);
+  margin: 0;
+
+  @include primary-font-bold;
+}

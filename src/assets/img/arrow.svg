@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="14px" viewBox="0 0 19 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Arrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Shipper-Logged-In" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-288.000000, -545.000000)" stroke-linecap="square">
+        <g id="Load-Dashboard" transform="translate(50.000000, 162.000000)" stroke="#3E1A5D" stroke-width="3">
+            <g id="Load-Dashboard-Info" transform="translate(0.000000, 22.000000)">
+                <g id="Load-Details" transform="translate(0.000000, 207.000000)">
+                    <g id="load-detail-info" transform="translate(39.000000, 0.000000)">
+                        <g id="origin-destination" transform="translate(0.000000, 109.000000)">
+                            <g id="Arrow" transform="translate(200.000000, 47.000000)">
+                                <path d="M11.2777778,0.333333333 L15.4536934,5.34443213" id="Line"></path>
+                                <path d="M0.5,5.34443213 L14.4536934,5.34443213" id="Line"></path>
+                                <path d="M16,5 L11,11 L16,5 Z" id="Line"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -3,6 +3,10 @@
     - Selectors setup for you to style form elements how you want
     - Focus, error, and disabled states are set to be extended
 ==============================================================================*/
+.form-group {
+  margin: 0 0 rem-calc(22);
+}
+
 input,
 textarea {
   &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -34,7 +38,7 @@ select {
   border-radius: 0;
   color: $color-primary;
   font-size: rem-calc(16);
-  margin: 0 0 rem-calc(22);
+  margin: 0;
   max-width: 100%;
   padding: rem-calc(12 43 10);
   transition: all $transition-default;
@@ -56,9 +60,17 @@ select {
   &.error {
     background-color: $color-error-bg;
     border-color: $color-error;
+    margin-bottom: 0;
   }
 }
 
 textarea {
   min-height: 165px;
+}
+
+.error-message {
+  color: $color-error;
+  display: block;
+  margin-top: rem-calc(3);
+  text-align: left;
 }

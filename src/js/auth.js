@@ -28,20 +28,21 @@ export default {
       },
     })
       .then(response => utils.handleErrors(response))
-      .then(response => response.json())
-      .then((responseJson) => {
-        console.log(responseJson); // eslint-disable-line no-console
-
+      .then(() => {
         auth.clearUserCreds();
         this.user.creds = auth.setBasicAuthentication(creds);
         auth.setUserCreds(this.user.creds);
 
         if (redirect) {
-          router.go(redirect);
+          router.push(redirect);
         }
       })
       .catch((error) => {
-        context.error = error.message;
+        if (error.message) {
+          context.error = error.message;
+        } else if (!error.ok && error.bodyText) {
+          context.error = error.bodyText;
+        }
       });
 
     // auth.clearUserCreds();

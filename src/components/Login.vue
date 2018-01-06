@@ -12,18 +12,26 @@
           <div class="form-group">
             <input
               type="text"
-              class="form-control"
+              :class="{'error': errors.has('username') }"
+              name="username"
               placeholder="Username"
               v-model="credentials.username"
+              v-validate="'required'"
             >
+            <span v-show="errors.has('username')"
+              class="error-message">{{ errors.first('username') }}</span>
           </div>
           <div class="form-group">
             <input
               type="password"
-              class="form-control"
+              :class="{'error': errors.has('password') }"
+              name="password"
               placeholder="Password"
               v-model="credentials.password"
+              v-validate="'required'"
             >
+            <span v-show="errors.has('password')"
+              class="error-message">{{ errors.first('password') }}</span>
           </div>
           <button class="button" @click="submit()">Log In</button>
         </div>
@@ -33,7 +41,12 @@
 </template>
 
 <script>
+  import Vue from 'vue';
+  import VeeValidate from 'vee-validate';
+
   import auth from '../js/auth';
+
+  Vue.use(VeeValidate);
 
   export default {
     data() {
@@ -56,9 +69,19 @@
           username: this.credentials.username,
           password: this.credentials.password,
         };
-        // We need to pass the component's this context
-        // to properly make use of http in the auth service
-        auth.login(this, credentials, { name: 'shippers' });
+
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            // We need to pass the component's this context
+            // to properly make use of https in the auth service
+            auth.login(this, credentials, { name: 'shippers' });
+            return true;
+          }
+          return false;
+        }).catch((error) => {
+          this.error = error.bodyText;
+          return false;
+        });
       },
     },
   };

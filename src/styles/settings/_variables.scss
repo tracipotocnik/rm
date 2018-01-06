@@ -8,8 +8,10 @@ $pinkish-gray: #bfbfbf;
 $grape-purple: #3e1a5d;
 $blueberry: #58418d;
 $cloudy-blue: #cec7d5;
+$nice-blue: #1077bc;
 $red-pink: #f51a5d;
 $faded-pink: #e7bbc8;
+$silver: #dadcde;
 
 // Color Hierarchy
 $color-primary: $grape-purple;
@@ -32,7 +34,7 @@ $color-success: #000;
 $color-success-bg: #000;
 
 $color-link: black;
-$color-link-hover: red;
+$color-link-hover: $nice-blue;
 
 /*================ Typography Variables ================*/
 $font-size-base: 16px;
