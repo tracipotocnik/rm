@@ -1,15 +1,16 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-// import { requireAuth } from '../utils/auth';
 
 // Components
 import Home from '@/components/Home';
 import Login from '@/components/Login';
 import Shippers from '@/components/Shippers';
 
+import auth from '../auth';
+
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
   routes: [
     // routes
     {
@@ -26,6 +27,20 @@ export default new VueRouter({
       name: 'shippers',
       path: '/shippers',
       component: Shippers,
+      meta: { auth: true },
     },
   ],
 });
+
+
+router.beforeEach((to, from, next) => {
+  const authRequired = to.matched.some(route => route.meta.auth);
+  const authed = auth.isLoggedIn();
+  if (authRequired && !authed) {
+    next({ name: 'login' });
+  } else {
+    next();
+  }
+});
+
+export default router;
