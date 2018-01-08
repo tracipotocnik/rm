@@ -14,6 +14,7 @@
               type="text"
               :class="{'error': errors.has('username') }"
               name="username"
+              required
               placeholder="Username"
               v-model="credentials.username"
               v-validate="'required'"
@@ -26,6 +27,7 @@
               type="password"
               :class="{'error': errors.has('password') }"
               name="password"
+              required
               placeholder="Password"
               v-model="credentials.password"
               v-validate="'required'"
@@ -74,7 +76,7 @@
           if (result) {
             // We need to pass the component's this context
             // to properly make use of https in the auth service
-            auth.login(this, credentials, { name: 'shippers' });
+            auth.login(this, credentials);
             return true;
           }
           return false;

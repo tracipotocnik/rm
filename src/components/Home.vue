@@ -26,7 +26,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
   .image {
     margin-top: 0.75rem;
     margin-bottom: 1.5rem;
@@ -39,6 +38,4 @@ export default {
     font-weight: 600;
     text-transform: uppercase;
   }
-
-
 </style>

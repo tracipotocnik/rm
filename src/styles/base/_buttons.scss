@@ -5,6 +5,7 @@
   border-radius: rem-calc(10);
   color: $color-primary;
   font-size: rem-calc(16);
+  margin: 0;
   min-width: rem-calc(150);
   padding: rem-calc(12 10);
 
@@ -12,5 +13,16 @@
   &:focus {
     background-color: $color-primary;
     color: $white;
+  }
+}
+
+.button--dark {
+  background-color: $color-primary;
+  color: $white;
+
+  &:hover,
+  &:focus {
+    border-color: $blueberry;
+    background-color: $blueberry;
   }
 }

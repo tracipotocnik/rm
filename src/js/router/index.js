@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 import Home from '@/components/Home';
 import Login from '@/components/Login';
 import Shippers from '@/components/Shippers';
+import Loads from '@/components/Loads';
 
 import auth from '../auth';
 
@@ -29,9 +30,14 @@ const router = new VueRouter({
       component: Shippers,
       meta: { auth: true },
     },
+    {
+      name: 'loads',
+      path: '/loads',
+      component: Loads,
+      meta: { auth: true },
+    },
   ],
 });
-
 
 router.beforeEach((to, from, next) => {
   const authRequired = to.matched.some(route => route.meta.auth);

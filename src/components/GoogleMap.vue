@@ -13,19 +13,22 @@
 <script>
 export default {
   name: 'google-map',
-  props: ['name'],
+  props: [
+    'name',
+    'startLatitude',
+    'startLongitude',
+    'endLatitude',
+    'endLongitude',
+  ],
   data() {
     return {
       mapName: `${this.name}-map`,
       markerCoordinates: [{
-        latitude: 51.501527,
-        longitude: -0.1921837,
+        latitude: this.startLatitude,
+        longitude: this.startLongitude,
       }, {
-        latitude: 51.505874,
-        longitude: -0.1838486,
-      }, {
-        latitude: 51.4998973,
-        longitude: -0.202432,
+        latitude: this.endLatitude,
+        longitude: this.endLongitude,
       }],
       map: null,
       bounds: null,

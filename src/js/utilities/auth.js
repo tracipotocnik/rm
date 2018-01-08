@@ -1,6 +1,7 @@
 const buffer = require('buffer/').Buffer;
 
 const USER_CREDS = 'user_creds';
+const USER_UUID = 'user_uuid';
 
 export default {
   setBasicAuthentication(creds) {
@@ -12,11 +13,23 @@ export default {
     return localStorage.getItem(USER_CREDS);
   },
 
+  getUserUUID() {
+    return localStorage.getItem(USER_UUID);
+  },
+
   clearUserCreds() {
     localStorage.removeItem(USER_CREDS);
   },
 
+  clearUserUUID() {
+    localStorage.removeItem(USER_UUID);
+  },
+
   setUserCreds(creds) {
     localStorage.setItem(USER_CREDS, creds);
+  },
+
+  setUserUUID(uuid) {
+    localStorage.setItem(USER_UUID, uuid);
   },
 };

@@ -1,0 +1,15 @@
+// Load card
+.load-card {
+  background: $white;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 30px);
+  margin-bottom: rem-calc(30);
+  padding: rem-calc(15 25);
+}
+
+.load-card__button {
+  margin-top: auto;
+  text-align: center;
+}

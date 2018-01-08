@@ -6,53 +6,44 @@
       <div class="cell">
         <div class="panels-wrapper">
           <div class="panel-container">
-            <div class="panel">
+            <div class="panel" v-for="load in singleLoad">
               <div class="panel__top">
                 <h2 class="panel__heading">Load Dashboard</h2>
-                <p class="panel__subheading"><a href="#">
-                  View and track all of your goods <img src="../assets/img/caret-right.svg"></a>
+                <p class="panel__subheading">
+                  <router-link :to="{ name: 'loads'}">
+                    View and track all of your goods <img src="../assets/img/caret-right.svg">
+                  </router-link>
                 </p>
               </div>
               <div class="panel__filter">
                 <input type="number" placeholder="Enter Load ID #">
                 <p class="panel__filter-title">
-                  <strong>Most Recent Load ID:</strong> 3501
+                  <strong>Most Recent Load ID:</strong> {{ load.Id }}
                 </p>
               </div>
               <div class="panel__details">
-                <p class="panel__details__pretitle">Status: <strong>Waiting</strong></p>
-                <h3 class="panel__details__title">Metal Car Parts</h3>
-                <div class="panel__subdetails">
-                  <p class="panel__subdetails__item">
-                    Distance: 714 mi
-                  </p>
-                  <p class="panel__subdetails__item">
-                    Age: 8 Days
-                  </p>
-                  <p class="panel__subdetails__item">
-                    <strong>$1,460</strong>
-                  </p>
-                </div>
-                <div class="panel__locations">
-                  <div class="panel__locations__item">
-                    <p class="panel__locations__title">
-                      Voorheesville, NY
-                    </p>
-                    <p>Pick Up Window</p>
-                    <p>Thu 11/23</p>
-                    <p>03:22 - 11:22</p>
-                  </div>
-                  <div class="panel__locations__item">
-                    <p class="panel__locations__title">
-                      Cincinnati, OH
-                    </p>
-                    <p>Delivery Window</p>
-                    <p>Tue 11/28</p>
-                    <p>03:22 - 11:22</p>
-                  </div>
-                </div>
+                <load-info
+                  :status="load.LoadState"
+                  :title="load.Description"
+                  :distance="load.DistanceM"
+                  :time="load.AgeHrs"
+                  :price="load.Rate.ShipperTotal"
+                  :pickupCity="load.Pickup.Address.locality"
+                  :pickupState="load.Pickup.Address.regionCode"
+                  :pickupDateStart="load.PickupWindowStartUTC"
+                  :pickupDateEnd="load.PickupWindowEndUTC"
+                  :dropoffCity="load.Dropoff.Address.locality"
+                  :dropoffState="load.Dropoff.Address.regionCode"
+                  :dropoffDateStart="load.DropoffWindowStartUTC"
+                  :dropoffDateEnd="load.DropoffWindowEndUTC"
+                ></load-info>
               </div>
-              <google-map></google-map>
+              <google-map
+                :startLatitude="load.Pickup.LatDD"
+                :startLongitude="load.Pickup.LonDD"
+                :endLatitude="load.Dropoff.LatDD"
+                :endLongitude="load.Dropoff.LonDD"
+              ></google-map>
             </div>
           </div>
           <div class="panel-container">
@@ -74,24 +65,25 @@
 
 <script>
   import GoogleMap from './GoogleMap';
+  import LoadInfo from './LoadInfo';
+
+  import loads from '../js/loads';
 
   export default {
     data() {
       return {
-        // We need to initialize the component with any
-        // properties that will be used in it
-        credentials: {
-          username: '',
-          password: '',
-        },
-        error: '',
+        singleLoad: '',
       };
     },
     components: {
       GoogleMap,
+      LoadInfo,
     },
     beforeCreate() {
       document.body.className = 'page--shippers';
+    },
+    mounted() {
+      loads.getLoads(this);
     },
   };
 </script>

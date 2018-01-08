@@ -11,6 +11,7 @@ Vue.use(VueResource);
 // URL and endpoint constants
 const API_URL = `${constants.APP_BACKEND_URL}${constants.API_VERSION}`;
 const LOGIN_URL = '/user/testAuthentication?username=';
+const USER_URL = '/user?username=';
 
 export default {
   // User object will let us check authentication status
@@ -18,24 +19,45 @@ export default {
     creds: auth.getUserCreds(),
   },
 
-  login(context, creds, redirect) {
-    const url = API_URL + LOGIN_URL + creds.username;
+  login(context, creds) {
+    const loginQueryUrl = API_URL + LOGIN_URL + creds.username;
+    const userQueryUrl = API_URL + USER_URL + creds.username;
 
-    Vue.http.get(url, {
+    Vue.http.get(loginQueryUrl, {
       headers: {
         Accept: 'application/json',
         Authorization: `Basic ${auth.setBasicAuthentication(creds)}`,
       },
     })
       .then(response => utils.handleErrors(response))
-      .then(() => {
+      .then((response) => {
         auth.clearUserCreds();
+        auth.clearUserUUID();
         this.user.creds = auth.setBasicAuthentication(creds);
         auth.setUserCreds(this.user.creds);
+        auth.setUserUUID(response.body.content);
 
-        if (redirect) {
-          router.push(redirect);
-        }
+        Vue.http.get(userQueryUrl, {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Basic ${this.user.creds}`,
+          },
+        })
+          .then(user => utils.handleErrors(user))
+          .then((user) => {
+            if (user.body.UserType === 'CARRIER') {
+              router.push({ name: 'carriers' });
+            } else {
+              router.push({ name: 'shippers' });
+            }
+          })
+          .catch((error) => {
+            if (error.message) {
+              context.error = error.message;
+            } else if (!error.ok && error.bodyText) {
+              context.error = error.bodyText;
+            }
+          });
       })
       .catch((error) => {
         if (error.message) {
@@ -44,14 +66,6 @@ export default {
           context.error = error.bodyText;
         }
       });
-
-    // auth.clearUserCreds();
-    // this.user.creds = auth.setBasicAuthentication(creds);
-    // auth.setUserCreds(this.user.creds);
-    // console.log(context); // eslint-disable-line no-console
-    // if (redirect) {
-    //   router.push(redirect);
-    // }
   },
 
   isLoggedIn() {
@@ -65,16 +79,5 @@ export default {
   logout() {
     auth.clearUserCreds();
     window.location.href = '/';
-  },
-
-  requireAuth(to, from, next) {
-    if (!this.isLoggedIn()) {
-      next({
-        path: '/',
-        query: { redirect: to.fullPath },
-      });
-    } else {
-      next();
-    }
   },
 };
