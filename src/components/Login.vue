@@ -6,9 +6,7 @@
       <div class="cell text-center">
         <div class="box">
           <h1>Log In</h1>
-          <div class="alert alert-danger" v-if="error">
-            <p>{{ error }}</p>
-          </div>
+          <p v-if="error">{{ error }}</p>
           <div class="form-group">
             <input
               type="text"

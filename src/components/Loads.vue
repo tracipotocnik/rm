@@ -34,6 +34,9 @@
             </ul>
           </div>
           <div class="grid-x grid-margin-x">
+            <div class="cell" v-if="error">
+              <p>{{ error }}</p>
+            </div>
             <div class="medium-6 large-4 cell" v-for="load in loads">
               <div class="load-card">
                 <load-info
@@ -71,6 +74,7 @@
   export default {
     data() {
       return {
+        error: '',
         loads: '',
       };
     },

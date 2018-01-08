@@ -37,4 +37,8 @@ export default {
         }
       });
   },
+
+  findLoad(loadsArray, loadId) {
+    return loadsArray.filter(e => e.Id === loadId);
+  },
 };

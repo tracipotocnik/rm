@@ -16,12 +16,16 @@
                 </p>
               </div>
               <div class="panel__filter">
-                <input type="number" placeholder="Enter Load ID #">
+                <input type="number"
+                  placeholder="Enter Load ID #"
+                  @keyup.enter="findLoad"
+                  v-model="loadId">
                 <p class="panel__filter-title">
                   <strong>Most Recent Load ID:</strong> {{ load.Id }}
                 </p>
               </div>
               <div class="panel__details">
+                <p v-if="error">{{ error }}</p>
                 <load-info
                   :status="load.LoadState"
                   :title="load.Description"
@@ -39,6 +43,7 @@
                 ></load-info>
               </div>
               <google-map
+                name="dashboard"
                 :startLatitude="load.Pickup.LatDD"
                 :startLongitude="load.Pickup.LonDD"
                 :endLatitude="load.Dropoff.LatDD"
@@ -72,7 +77,10 @@
   export default {
     data() {
       return {
+        error: '',
+        loads: '',
         singleLoad: '',
+        loadId: '',
       };
     },
     components: {
@@ -84,6 +92,12 @@
     },
     mounted() {
       loads.getLoads(this);
+    },
+    methods: {
+      findLoad() {
+        const currentLoadId = parseInt(this.loadId, 10);
+        this.singleLoad = loads.findLoad(this.loads, currentLoadId);
+      },
     },
   };
 </script>
