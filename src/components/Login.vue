@@ -6,34 +6,36 @@
       <div class="cell text-center">
         <div class="box">
           <h1>Log In</h1>
-          <p v-if="error">{{ error }}</p>
-          <div class="form-group">
-            <input
-              type="text"
-              :class="{'error': errors.has('username') }"
-              name="username"
-              required
-              placeholder="Username"
-              v-model="credentials.username"
-              v-validate="'required'"
-            >
-            <span v-show="errors.has('username')"
-              class="error-message">{{ errors.first('username') }}</span>
-          </div>
-          <div class="form-group">
-            <input
-              type="password"
-              :class="{'error': errors.has('password') }"
-              name="password"
-              required
-              placeholder="Password"
-              v-model="credentials.password"
-              v-validate="'required'"
-            >
-            <span v-show="errors.has('password')"
-              class="error-message">{{ errors.first('password') }}</span>
-          </div>
-          <button class="button" @click="submit()">Log In</button>
+          <form @submit.prevent="submit">
+            <p v-if="error">{{ error }}</p>
+            <div class="form-group">
+              <input
+                type="text"
+                :class="{'error': errors.has('username') }"
+                name="username"
+                required
+                placeholder="Username"
+                v-model="credentials.username"
+                v-validate="'required'"
+              >
+              <span v-show="errors.has('username')"
+                class="error-message">{{ errors.first('username') }}</span>
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                :class="{'error': errors.has('password') }"
+                name="password"
+                required
+                placeholder="Password"
+                v-model="credentials.password"
+                v-validate="'required'"
+              >
+              <span v-show="errors.has('password')"
+                class="error-message">{{ errors.first('password') }}</span>
+            </div>
+            <button class="button">Log In</button>
+          </form>
         </div>
       </div>
     </div>

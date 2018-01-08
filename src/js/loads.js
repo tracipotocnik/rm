@@ -10,11 +10,11 @@ Vue.use(VueResource);
 // URL and endpoint constants
 const API_URL = `${constants.APP_BACKEND_URL}${constants.API_VERSION}`;
 const LOAD_URL = '/load/allLoads?isShipper=true&userUuid=';
-const USER_UUID = auth.getUserUUID();
-const USER_CREDS = auth.getUserCreds();
 
 export default {
   getLoads(context) {
+    const USER_UUID = auth.getUserUUID();
+    const USER_CREDS = auth.getUserCreds();
     const loadQueryUrl = API_URL + LOAD_URL + USER_UUID;
     Vue.http.get(loadQueryUrl, {
       headers: {
