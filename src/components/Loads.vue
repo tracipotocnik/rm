@@ -8,27 +8,18 @@
           <div class="dashboard__top">
             <div class="dashboard__heading">
               <h1 class="dashboard__title">Load Dashboard</h1>
-              <input type="number" placeholder="Enter Load ID #">
+              <input type="text"
+                placeholder="Enter Load ID #"
+                v-model="loadId"
+                v-on:keyup="onLoadIdFilter">
             </div>
             <ul class="dashboard__tabs">
               <li class="dashboard__tab-item">
-                <a href="#" class="active">
-                  Waiting
-                </a>
-              </li>
-              <li class="dashboard__tab-item">
-                <a href="#">
-                  In Transit
-                </a>
-              </li>
-              <li class="dashboard__tab-item">
-                <a href="#">
-                  Delivered
-                </a>
-              </li>
-              <li class="dashboard__tab-item">
-                <a href="#">
-                  Complete
+              <li class="dashboard__tab-item" v-for="state in shipperStates">
+                <a href="#"
+                  @click.prevent="onStateClick(state)"
+                  :class="{ active: state === filteredState }">
+                  {{ state }}
                 </a>
               </li>
             </ul>
@@ -37,7 +28,7 @@
             <div class="cell" v-if="error">
               <p>{{ error }}</p>
             </div>
-            <div class="medium-6 large-4 cell" v-for="load in loads">
+            <div class="medium-6 large-4 cell" v-for="load in filteredLoads">
               <div class="load-card">
                 <load-info
                   :id="load.Id"
@@ -55,7 +46,9 @@
                   :dropoffDateEnd="load.DropoffWindowEndUTC"
                 ></load-info>
                 <div class="load-card__button">
-                  <a href="#" class="button button--dark">View</a>
+                  <router-link
+                    :to="{ name: 'singleLoad', params: {id: load.Uuid} }"
+                    class="button button--dark">View</router-link>
                 </div>
               </div>
             </div>
@@ -69,13 +62,18 @@
 <script>
   import LoadInfo from './LoadInfo';
 
+  import * as constants from '../js/constants';
   import loads from '../js/loads';
+  import loadStates from '../js/loadStates';
 
   export default {
     data() {
       return {
         error: '',
-        loads: '',
+        loads: [],
+        loadId: '',
+        filteredState: '',
+        shipperStates: constants.ShipperStates,
       };
     },
     components: {
@@ -83,6 +81,27 @@
     },
     mounted() {
       loads.getLoads(this);
+    },
+    methods: {
+      onLoadIdFilter() {
+        this.filteredState = '';
+      },
+      onStateClick(state) {
+        this.filteredState = state;
+      },
+    },
+    computed: {
+      filteredLoads() {
+        if (this.loads && this.loads.length) {
+          if (this.filteredState) {
+            return this.loads.filter(load =>
+              loadStates.convertLoadState(load.LoadState) === this.filteredState);
+          }
+          return this.loads.filter(load => load.Id.toString().toLowerCase()
+            .includes(this.loadId.toString().toLowerCase()));
+        }
+        return this.loads;
+      },
     },
   };
 </script>

@@ -6,7 +6,7 @@
       <div class="cell">
         <div class="panels-wrapper">
           <div class="panel-container">
-            <div class="panel" v-for="load in singleLoad">
+            <div class="panel">
               <div class="panel__top">
                 <h2 class="panel__heading">Load Dashboard</h2>
                 <p class="panel__subheading">
@@ -16,18 +16,18 @@
                 </p>
               </div>
               <div class="panel__filter">
-                <input type="number"
+                <input type="text"
                   placeholder="Enter Load ID #"
                   @keyup.enter="findLoad"
                   v-model="loadId">
-                <p class="panel__filter-title">
+                <p class="panel__filter-title" v-if="load">
                   <strong>Most Recent Load ID:</strong> {{ load.Id }}
                 </p>
               </div>
-              <div class="panel__details">
+              <div class="panel__details" v-if="load">
                 <p v-if="error">{{ error }}</p>
                 <load-info
-                  :status="load.LoadState"
+                  :status="loadState(load.LoadState)"
                   :title="load.Description"
                   :distance="load.DistanceM"
                   :time="load.AgeHrs"
@@ -43,6 +43,7 @@
                 ></load-info>
               </div>
               <google-map
+                v-if="load"
                 name="dashboard"
                 :startLatitude="load.Pickup.LatDD"
                 :startLongitude="load.Pickup.LonDD"
@@ -73,13 +74,14 @@
   import LoadInfo from './LoadInfo';
 
   import loads from '../js/loads';
+  import loadStates from '../js/loadStates';
 
   export default {
     data() {
       return {
         error: '',
         loads: '',
-        singleLoad: '',
+        load: '',
         loadId: '',
       };
     },
@@ -96,7 +98,10 @@
     methods: {
       findLoad() {
         const currentLoadId = parseInt(this.loadId, 10);
-        this.singleLoad = loads.findLoad(this.loads, currentLoadId);
+        this.load = loads.findLoad(this.loads, currentLoadId);
+      },
+      loadState(state) {
+        return loadStates.convertLoadState(state);
       },
     },
   };

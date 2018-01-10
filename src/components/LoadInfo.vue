@@ -7,14 +7,14 @@
       Load ID: <strong>{{ id }}</strong>
     </p>
     <h3 class="load-info__title">{{ title }}</h3>
-    <div class="load-info__details">
-      <p class="load-info__details__item">
+    <div v-if="distance || time || price" class="load-info__details">
+      <p v-if="distance" class="load-info__details__item">
         Distance: <span class="no-wrap">{{ distance | number }} mi</span>
       </p>
-      <p class="load-info__details__item">
+      <p v-if="time" class="load-info__details__item">
         Age: {{ time | time }}
       </p>
-      <p class="load-info__details__item">
+      <p v-if="price" class="load-info__details__item">
         <strong>{{ price | currency }}</strong>
       </p>
     </div>

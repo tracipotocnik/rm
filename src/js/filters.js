@@ -1,5 +1,7 @@
 import Vue from 'vue';
 
+Vue.filter('convertToHash', string => string.replace(' ', '').toLowerCase());
+
 Vue.filter('number', (value) => {
   if (!value && value !== 0) return '';
   const roundedVal = Math.ceil(value);

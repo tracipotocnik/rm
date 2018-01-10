@@ -43,7 +43,8 @@
     border-bottom: 2px solid transparent;
     color: inherit;
     display: block;
-    padding: rem-calc(0 25);
+    line-height: 1.2;
+    padding: rem-calc(5 25);
 
     &.active {
       border-color: $color-primary;
