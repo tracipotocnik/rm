@@ -10,10 +10,9 @@ export const APP_BACKEND_URL = 'https://api-test.routemarket.com:8443';
 
 export const API_VERSION = '/v1';
 
-export const ShipperStates = {
-  WAITING: 'Waiting',
-  ASSIGNED: 'Assigned',
-  PICKED_UP: 'Picked Up',
-  DELIVERED: 'Delivered',
-  PAID: 'Paid',
+export const ShipperPageTypes = {
+  SHIPPER_WAITING: 'Waiting',
+  SHIPPER_INTRANSIT: 'In Transit',
+  SHIPPER_DELIVERED: 'Delivered',
+  SHIPPER_COMPLETED: 'Completed',
 };

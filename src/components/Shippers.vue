@@ -24,9 +24,12 @@
                   <strong>Most Recent Load ID:</strong> {{ load.Id }}
                 </p>
               </div>
-              <div class="panel__details" v-if="load">
+              <div class="panel__details">
                 <p v-if="error">{{ error }}</p>
+                <p v-if="!load && !loadError">{{ loadingMessage }}</p>
+                <p v-if="!load && loadError">{{ noLoadMessage }}</p>
                 <load-info
+                  v-if="load"
                   :status="loadState(load.LoadState)"
                   :title="load.Description"
                   :distance="load.DistanceM"
@@ -83,6 +86,9 @@
         loads: '',
         load: '',
         loadId: '',
+        loadingMessage: 'Loading...',
+        noLoadMessage: 'Load ID not found.',
+        loadError: false,
       };
     },
     components: {
@@ -99,6 +105,11 @@
       findLoad() {
         const currentLoadId = parseInt(this.loadId, 10);
         this.load = loads.findLoad(this.loads, currentLoadId);
+        if (!this.load) {
+          this.loadError = true;
+        } else {
+          this.loadError = false;
+        }
       },
       loadState(state) {
         return loadStates.convertLoadState(state);

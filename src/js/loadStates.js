@@ -7,27 +7,25 @@ export default {
       state === 'PRICED' ||
       state === 'SCHEDULABLE' ||
       state === 'ROUTEDGENERATED') {
-      return constants.ShipperStates.WAITING;
+      return constants.ShipperPageTypes.SHIPPER_WAITING;
     } else if (
       state === 'ROUTEDAPPROVED' ||
-      state === 'CARRIERLOADAGREEMENTSIGNED') {
-      return constants.ShipperStates.ASSIGNED;
-    } else if (
+      state === 'CARRIERLOADAGREEMENTSIGNED' ||
       state === 'CARRIERBOLSIGNED' ||
-      state === 'INTRANSIT' ||
-      state === 'LOSTDESTROYED') {
-      return constants.ShipperStates.PICKED_UP;
+      state === 'INTRANSIT') {
+      return constants.ShipperPageTypes.SHIPPER_INTRANSIT;
     } else if (
+      state === 'LOSTDESTROYED' ||
       state === 'DELIVERED' ||
       state === 'DELIVEREDCONFIRMED' ||
       state === 'SHIPPERINVOICED' ||
       state === 'CARRIERPAID') {
-      return constants.ShipperStates.DELIVERED;
+      return constants.ShipperPageTypes.SHIPPER_DELIVERED;
     } else if (
       state === 'SHIPPERPAID' ||
       state === 'LOADCOMPLETED') {
-      return constants.ShipperStates.PAID;
+      return constants.ShipperPageTypes.COMPLETED;
     }
-    return 'Assigned';
+    return 'N/A';
   },
 };

@@ -28,6 +28,12 @@
             <div class="cell" v-if="error">
               <p>{{ error }}</p>
             </div>
+            <div class="cell" v-if="!filteredLoads.length && !loadError">
+              <p>{{ loadingMessage }}</p>
+            </div>
+            <div class="cell" v-if="!filteredLoads && loadError">
+              <p>{{ noLoadMessage }}</p>
+            </div>
             <div class="medium-6 large-4 cell" v-for="load in filteredLoads">
               <div class="load-card">
                 <load-info
@@ -73,7 +79,11 @@
         loads: [],
         loadId: '',
         filteredState: '',
-        shipperStates: constants.ShipperStates,
+        shipperStates: constants.ShipperPageTypes,
+        loaded: false,
+        loadingMessage: 'Loading...',
+        noLoadMessage: 'No results found.',
+        loadError: false,
       };
     },
     components: {
@@ -93,12 +103,20 @@
     computed: {
       filteredLoads() {
         if (this.loads && this.loads.length) {
+          let filteredLoads = '';
           if (this.filteredState) {
-            return this.loads.filter(load =>
+            filteredLoads = this.loads.filter(load =>
               loadStates.convertLoadState(load.LoadState) === this.filteredState);
+          } else {
+            filteredLoads = this.loads.filter(load => load.Id.toString().toLowerCase()
+              .includes(this.loadId.toString().toLowerCase()));
           }
-          return this.loads.filter(load => load.Id.toString().toLowerCase()
-            .includes(this.loadId.toString().toLowerCase()));
+          if (filteredLoads.length > 0) {
+            this.loadError = false;
+            return filteredLoads;
+          }
+          this.loadError = true;
+          return false;
         }
         return this.loads;
       },

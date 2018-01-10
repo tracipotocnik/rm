@@ -38,7 +38,8 @@ export default {
   },
 
   findLoad(loadsArray, loadId) {
-    return loadsArray.filter(e => e.Id === loadId);
+    const load = loadsArray.filter(e => e.Id === loadId);
+    return load[0];
   },
 
   getSingleLoad(context, loadUuid) {

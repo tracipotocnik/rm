@@ -45,6 +45,7 @@
     display: block;
     line-height: 1.2;
     padding: rem-calc(5 25);
+    white-space: nowrap;
 
     &.active {
       border-color: $color-primary;
