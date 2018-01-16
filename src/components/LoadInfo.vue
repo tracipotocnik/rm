@@ -1,5 +1,5 @@
 <template>
-  <div class="load-info">
+  <div :class="{'load-info': true, 'load-info--large': isLarge}">
     <p class="load-info__pretitle load-info__pretitle--blue" v-show="status">
       Status: <strong>{{ status }}</strong>
     </p>
@@ -39,12 +39,10 @@
   </div>
 </template>
 
-<style scoped>
-</style>
-
 <script>
   export default {
     props: [
+      'isLarge',
       'status',
       'id',
       'title',

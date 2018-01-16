@@ -1,12 +1,16 @@
 <template>
-  <div class="google-map" :id="mapName"></div>
+  <div :class="{'google-map': true, 'google-map--tall': isTall}" :id="mapName"></div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
   .google-map {
     width: 100%;
     height: 285px;
     margin: 0 auto;
+
+    &--tall {
+      height: 300px;
+    }
   }
 </style>
 
@@ -14,8 +18,11 @@
 export default {
   props: [
     'name',
+    'isTall',
     'startLatitude',
     'startLongitude',
+    'midLatitude',
+    'midLongitude',
     'endLatitude',
     'endLongitude',
   ],
@@ -26,12 +33,16 @@ export default {
         latitude: this.startLatitude,
         longitude: this.startLongitude,
       }, {
+        latitude: this.midLatitude,
+        longitude: this.midLongitude,
+      }, {
         latitude: this.endLatitude,
         longitude: this.endLongitude,
       }],
       map: null,
       bounds: null,
       markers: [],
+      hasWaypoint: false,
     };
   },
   watch: {
@@ -49,22 +60,40 @@ export default {
       },
       deep: true,
     },
-    endLatitude: {
+    midLatitude: {
       handler(val) {
         this.markerCoordinates[1].latitude = val;
         this.generateMap();
       },
       deep: true,
     },
-    endLongitude: {
+    midLongitude: {
       handler(val) {
         this.markerCoordinates[1].longitude = val;
         this.generateMap();
       },
       deep: true,
     },
+    endLatitude: {
+      handler(val) {
+        this.markerCoordinates[2].latitude = val;
+        this.generateMap();
+      },
+      deep: true,
+    },
+    endLongitude: {
+      handler(val) {
+        this.markerCoordinates[2].longitude = val;
+        this.generateMap();
+      },
+      deep: true,
+    },
   },
   mounted() {
+    if (this.markerCoordinates[1].latitude && this.markerCoordinates[1].longitude) {
+      this.hasWaypoint = true;
+    }
+
     this.generateMap();
   },
   methods: {
@@ -79,23 +108,77 @@ export default {
       };
       this.map = new google.maps.Map(element, options);
       // Create a renderer for directions and bind it to the map.
-      const directionsDisplay = new google.maps.DirectionsRenderer({ map: this.map });
-      directionsService.route({
+      const directionsDisplay = new google.maps.DirectionsRenderer({
+        map: this.map,
+        suppressMarkers: true,
+      });
+      const routeData = {
         origin: new google.maps.LatLng(
           this.markerCoordinates[0].latitude,
           this.markerCoordinates[0].longitude,
         ),
         destination: new google.maps.LatLng(
-          this.markerCoordinates[1].latitude,
-          this.markerCoordinates[1].longitude,
+          this.markerCoordinates[2].latitude,
+          this.markerCoordinates[2].longitude,
         ),
         travelMode: 'DRIVING',
-      }, (response, status) => {
+      };
+      if (this.hasWaypoint) {
+        routeData.waypoints = [{
+          location: new google.maps.LatLng(
+            this.markerCoordinates[1].latitude,
+            this.markerCoordinates[1].longitude,
+          ),
+        }];
+
+        this.addCurrentPositionMarker(
+          this.markerCoordinates[1].latitude,
+          this.markerCoordinates[1].longitude,
+          this.map,
+        );
+      }
+      directionsService.route(routeData, (response, status) => {
         // Route the directions and pass the response to a function to create
         // markers for each step.
         if (status === 'OK') {
           directionsDisplay.setDirections(response);
         }
+      });
+
+      // Add origin marker
+      this.addMarker(
+        this.markerCoordinates[0].latitude,
+        this.markerCoordinates[0].longitude,
+        'A',
+        this.map,
+      );
+
+      // Add destination marker
+      this.addMarker(
+        this.markerCoordinates[2].latitude,
+        this.markerCoordinates[2].longitude,
+        'B',
+        this.map,
+      );
+    },
+    addMarker(latitude, longitude, markerLabel, mapObj) {
+      return new google.maps.Marker({
+        position: {
+          lat: latitude,
+          lng: longitude,
+        },
+        label: markerLabel,
+        map: mapObj,
+      });
+    },
+    addCurrentPositionMarker(latitude, longitude, mapObj) {
+      return new google.maps.Marker({
+        position: {
+          lat: latitude,
+          lng: longitude,
+        },
+        map: mapObj,
+        title: 'Current Location',
       });
     },
   },

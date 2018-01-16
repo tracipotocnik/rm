@@ -53,14 +53,22 @@
                 :endLatitude="load.Dropoff.LatDD"
                 :endLongitude="load.Dropoff.LonDD"
               ></google-map>
+              <div class="panel__button" v-if="load">
+                <router-link
+                  :to="{ name: 'singleLoad', params: {id: load.Uuid} }"
+                  class="button button--dark">Track</router-link>
+              </div>
             </div>
           </div>
           <div class="panel-container">
             <div class="panel">
               <div class="panel__top">
                 <h2 class="panel__heading">Shipment Uploads</h2>
-                <p class="panel__subheading"><a href="#">
-                  View all <img src="../assets/img/caret-right.svg"></a>
+                <p class="panel__subheading">
+                  <router-link
+                    :to="{ name: 'shipmentUploads' }">
+                    View all <img src="../assets/img/caret-right.svg">
+                  </router-link>
                 </p>
               </div>
               <div class="panel__main panel__main--shipping"></div>

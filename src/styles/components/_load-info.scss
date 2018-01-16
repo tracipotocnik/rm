@@ -5,13 +5,26 @@
   &--blue {
     color: $nice-blue;
   }
+
+  .load-info--large & {
+    font-size: rem-calc(24);
+  }
 }
 
 .load-info__title {
   font-size: rem-calc(20);
+  line-height: 1.2;
   margin: 0;
 
   @include primary-font-bold;
+
+  .load-card & {
+    color: $black;
+  }
+
+  .load-info--large & {
+    font-size: rem-calc(36);
+  }
 }
 
 .load-info__details {
@@ -40,6 +53,11 @@
   margin: rem-calc(20 0);
   padding-top: rem-calc(20);
   width: 100%;
+
+  .load-info--large & {
+    margin-top: rem-calc(10);
+    padding-top: rem-calc(30);
+  }
 }
 
 .load-info__locations__item {
@@ -70,4 +88,8 @@
   margin: 0 0 rem-calc(5);
 
   @include primary-font-bold;
+
+  .load-card & {
+    color: $black;
+  }
 }

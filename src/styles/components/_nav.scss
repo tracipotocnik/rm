@@ -20,13 +20,15 @@
 
   &:hover,
   &:focus,
-  &.router-link-exact-active {
+  &.router-link-exact-active,
+  &.active {
     border-color: $white;
     color: inherit;
     outline: none;
   }
 
-  &.router-link-exact-active {
+  &.router-link-exact-active
+  &.active {
     @include primary-font-bold;
   }
 }

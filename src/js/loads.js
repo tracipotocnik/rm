@@ -11,6 +11,7 @@ Vue.use(VueResource);
 const API_URL = `${constants.APP_BACKEND_URL}${constants.API_VERSION}`;
 const LOAD_URL = '/load/allLoads?isShipper=true&userUuid=';
 const SINGLE_LOAD_URL = '/load/?loadUuid=';
+const LOAD_LOCATION_URL = '/loadStatus/location?loadUuid=';
 
 export default {
   getLoads(context) {
@@ -53,14 +54,37 @@ export default {
     })
       .then(response => utils.handleErrors(response))
       .then((response) => {
-        console.log(response); // eslint-disable-line no-console
+        console.log(response.body); // eslint-disable-line no-console
         context.load = response.body;
       })
       .catch((error) => {
         if (error.message) {
-          context.error = error.message;
+          context.single_error = error.message;
         } else if (!error.ok && error.bodyText) {
-          context.error = error.bodyText;
+          context.single_error = error.bodyText;
+        }
+      });
+  },
+
+  getLocation(context, loadUuid) {
+    const USER_CREDS = auth.getUserCreds();
+    const loadQueryUrl = API_URL + LOAD_LOCATION_URL + loadUuid;
+    Vue.http.get(loadQueryUrl, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Basic ${USER_CREDS}`,
+      },
+    })
+      .then(response => utils.handleErrors(response))
+      .then((response) => {
+        console.log(response.body); // eslint-disable-line no-console
+        context.loadLocation = response.body;
+      })
+      .catch((error) => {
+        if (error.message) {
+          context.location_error = error.message;
+        } else if (!error.ok && error.bodyText) {
+          context.location_error = error.bodyText;
         }
       });
   },

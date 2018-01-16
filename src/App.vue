@@ -10,7 +10,13 @@
       <nav class="header__nav">
         <ul class="nav">
           <li class="nav__item"><router-link to="/" class="nav__link">Home</router-link></li>
-          <li class="nav__item"><router-link :to="{ name: 'shippers'}" class="nav__link">Shippers</router-link></li>
+          <li class="nav__item">
+            <router-link
+              :to="{ name: 'shippers'}"
+              :class="{ nav__link: true,  active: $route.name === 'loads' || $route.name === 'shipmentUploads'  || $route.name === 'singleLoad' }">
+                Shippers
+            </router-link>
+          </li>
           <li class="nav__item"><router-link to="/carriers" class="nav__link">Carriers</router-link></li>
           <li class="nav__item"><router-link to="/learn-more" class="nav__link">Learn More</router-link></li>
           <li class="nav__item" v-show="!isLoggedIn()">

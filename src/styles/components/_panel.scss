@@ -17,6 +17,7 @@
   flex-direction: column;
   height: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .panel__top {
@@ -69,4 +70,10 @@
 
 .panel__details {
   margin: rem-calc(0 40 15);
+}
+
+.panel__button {
+  bottom: rem-calc(13);
+  position: absolute;
+  right: rem-calc(13);
 }

@@ -1,0 +1,30 @@
+// Table
+.table {
+  font-size: rem-calc(16);
+  margin-bottom: rem-calc(30);
+
+  thead {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid;
+    color: inherit;
+  }
+
+  th,
+  td {
+    padding: rem-calc(15 5 0);
+    text-align: center;
+
+    @include primary-font;
+
+    &:first-child {
+      padding-left: rem-calc(30);
+      text-align: left;
+    }
+  }
+
+  th {
+    padding-top: 0;
+    padding-bottom: rem-calc(5);
+  }
+}
