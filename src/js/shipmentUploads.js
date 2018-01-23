@@ -48,7 +48,7 @@ export default {
       },
       params: {
         userUuid: USER_UUID,
-        companyId: COMPANY_ID,
+        shipperId: COMPANY_ID,
       },
     })
       .then(response => utils.handleErrors(response))

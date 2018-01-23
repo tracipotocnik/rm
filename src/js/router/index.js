@@ -53,7 +53,7 @@ const router = new VueRouter({
     },
     {
       name: 'pendingLoads',
-      path: '/pending-loads/:companyUuid',
+      path: '/pending-quotes/:companyUuid',
       component: PendingLoads,
     },
   ],

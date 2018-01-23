@@ -68,7 +68,7 @@
                         shipment.Successes.length < shipment.LoadsAttemptedCount ?
                         'text-red' : 'text-green',
                       ]">
-                      {{ shipment.Successes.length }}
+                      {{ shipment.LoadIds.length }}
                       /
                       {{ shipment.LoadsAttemptedCount }}
                     </span>
@@ -126,7 +126,7 @@
                 CompanyId: this.user.CompanyId,
                 Filedata: array,
               };
-  
+
               shipments.submitShipment(this, fileInfo);
             });
           }
