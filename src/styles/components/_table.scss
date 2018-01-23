@@ -21,6 +21,10 @@
       padding-left: rem-calc(30);
       text-align: left;
     }
+
+    &.align-left {
+      text-align: left;
+    }
   }
 
   th {

@@ -32,6 +32,19 @@
   margin-left: auto;
 }
 
+.dashboard__download-link {
+  color: $color-primary;
+  margin-right: rem-calc(35);
+  position: relative;
+  top: rem-calc(13);
+
+  svg {
+    margin-left: rem-calc(5);
+    position: relative;
+    top: rem-calc(2);
+  }
+}
+
 .dashboard__title {
   margin: 0 0 rem-calc(15);
 }

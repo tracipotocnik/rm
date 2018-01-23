@@ -61,6 +61,7 @@
 }
 
 .load-info__locations__item {
+  position: relative;
   width: 50%;
 
   p:not(.load-info__locations__title) {
@@ -69,17 +70,15 @@
   }
 
   + .load-info__locations__item {
-    position: relative;
     text-align: right;
-
-    &::before {
-      content: url('assets/img/arrow.svg');
-      left: 0;
-      position: absolute;
-      top: 50%;
-      transform: translateX(-50%) translateY(-50%);
-    }
   }
+}
+
+.load-info__locations__arrow {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateX(50%) translateY(-50%);
 }
 
 .load-info__locations__title {

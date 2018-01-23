@@ -33,9 +33,14 @@ export default {
       .then((response) => {
         auth.clearUserCreds();
         auth.clearUserUUID();
+        auth.clearCompanyID();
+        auth.clearUsername();
+
         this.user.creds = auth.setBasicAuthentication(creds);
+
         auth.setUserCreds(this.user.creds);
         auth.setUserUUID(response.body.content);
+        auth.setUsername(creds.username);
 
         Vue.http.get(userQueryUrl, {
           headers: {
@@ -45,10 +50,12 @@ export default {
         })
           .then(user => utils.handleErrors(user))
           .then((user) => {
-            if (user.body.UserType === 'CARRIER') {
-              router.push({ name: 'carriers' });
-            } else {
+            if (user.body.UserType === 'SHIPPER') {
+              console.log(user.body); // eslint-disable-line no-console
+              auth.setCompanyID(user.body.CompanyId);
               router.push({ name: 'shippers' });
+            } else {
+              router.push({ name: 'carriers' });
             }
           })
           .catch((error) => {
@@ -78,6 +85,9 @@ export default {
 
   logout() {
     auth.clearUserCreds();
+    auth.clearUserUUID();
+    auth.clearCompanyID();
+    auth.clearUsername();
     window.location.href = '/';
   },
 };

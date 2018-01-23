@@ -84,7 +84,7 @@
                     <div class="summary__section">
                       <h3 class="summary__title">Distance</h3>
                       <div class="summary__container">
-                        <p class="summary__body">{{ load.DistanceM | number }} mi</p>
+                        <p class="summary__body">{{ load.DistanceM | numberCommas }} mi</p>
                       </div>
                     </div>
                     <div class="summary__section summary__section--text-right">

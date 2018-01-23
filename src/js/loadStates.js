@@ -6,6 +6,7 @@ export default {
       state === 'NEW' ||
       state === 'PRICED' ||
       state === 'SCHEDULABLE' ||
+      state === 'SCHEDULABLE_PENDING' ||
       state === 'ROUTEDGENERATED') {
       return constants.ShipperPageTypes.SHIPPER_WAITING;
     } else if (

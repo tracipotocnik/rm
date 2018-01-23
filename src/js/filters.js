@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-Vue.filter('number', (value) => {
+Vue.filter('numberCommas', (value) => {
   if (!value && value !== 0) return '';
   const roundedVal = Math.ceil(value);
   const numberWithCommas = roundedVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -62,6 +62,16 @@ Vue.filter('date', (value) => {
     month: 'numeric',
     day: 'numeric',
   });
+  return date;
+});
+
+Vue.filter('dateShort', (value) => {
+  if (!value && value !== 0) return '';
+  const date = (new Date(value)).toLocaleString([], {
+    month: '2-digit',
+    day: '2-digit',
+    year: '2-digit',
+  }).replace(/\//g, ' / ');
   return date;
 });
 

@@ -8,6 +8,7 @@ import Shippers from '@/components/Shippers';
 import Loads from '@/components/Loads';
 import SingleLoad from '@/components/SingleLoad';
 import ShipmentUploads from '@/components/ShipmentUploads';
+import PendingLoads from '@/components/PendingLoads';
 
 import auth from '../auth';
 
@@ -49,6 +50,11 @@ const router = new VueRouter({
       path: '/shipment-uploads',
       component: ShipmentUploads,
       meta: { auth: true },
+    },
+    {
+      name: 'pendingLoads',
+      path: '/pending-loads/:companyUuid',
+      component: PendingLoads,
     },
   ],
 });
