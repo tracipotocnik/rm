@@ -37,7 +37,7 @@
               <div class="cell" v-if="!filteredLoads && loadError">
                 <p>{{ noLoadMessage }}</p>
               </div>
-              <div class="medium-6 large-4 cell" v-for="load in filteredLoads">
+              <div class="medium-6 large-4 cell" v-for="(load, index) in filteredLoads">
                 <div class="load-card">
                   <load-info
                     :id="load.Id"
@@ -59,6 +59,9 @@
                       :to="{ name: 'singleLoad', params: {id: load.Uuid} }"
                       class="button button--dark">View</router-link>
                   </div>
+                  <!-- <a href="#" class="load-card__remove" @click.prevent="removeLoad(index)">
+                    Remove
+                  </a> -->
                 </div>
               </div>
             </div>
@@ -84,7 +87,6 @@
         loadId: '',
         filteredState: '',
         shipperStates: constants.ShipperPageTypes,
-        loaded: false,
         loadingMessage: 'Loading...',
         noLoadMessage: 'No results found.',
         loadError: false,
@@ -102,6 +104,9 @@
       },
       onStateClick(state) {
         this.filteredState = state;
+      },
+      removeLoad(currentIndex) {
+        this.$delete(this.loads, currentIndex);
       },
     },
     computed: {

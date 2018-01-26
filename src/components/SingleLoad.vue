@@ -32,6 +32,30 @@
               </div>
               <div class="large-8 cell">
                 <div class="summary" v-if="load">
+                  <div class="summary__button">
+                    <router-link :to="{ name: 'loads'}"
+                      class="button button--small">
+                      <svg width="7px" height="11px" viewBox="0 0 7 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+                          <g id="Shipper-Logged-In_Scroll" transform="translate(-1172.000000, -242.000000)" stroke="currentColor">
+                            <g id="Load-Dashboard-Copy-3" transform="translate(1063.000000, 162.000000)">
+                              <g id="Load-Dashboard-Info" transform="translate(0.000000, 22.000000)">
+                                <g id="Header" transform="translate(29.000000, 0.000000)">
+                                  <g id="View-All" transform="translate(10.000000, 53.000000)">
+                                    <g id="Arrow" transform="translate(73.500000, 10.500000) rotate(180.000000) translate(-73.500000, -10.500000) translate(71.000000, 5.000000)">
+                                      <path d="M0.277777778,0.333333333 L4.45369344,5.34443213" id="Line"></path>
+                                      <path d="M4.72715502,5.33610803 L0.541969834,10.3472068 L4.72715502,5.33610803 Z" id="Line"></path>
+                                    </g>
+                                  </g>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                      Back
+                    </router-link>
+                  </div>
                   <div class="summary__column">
                     <div class="summary__section">
                       <h3 class="summary__title">Summary</h3>
@@ -86,12 +110,6 @@
                       <div class="summary__container">
                         <p class="summary__body">{{ load.DistanceM | numberCommas }} mi</p>
                       </div>
-                    </div>
-                    <div class="summary__section summary__section--text-right">
-                      <router-link :to="{ name: 'loads'}"
-                        class="button button--dark">
-                        View all loads
-                      </router-link>
                     </div>
                   </div>
                 </div>

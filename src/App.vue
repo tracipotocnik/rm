@@ -13,7 +13,11 @@
           <li class="nav__item">
             <router-link
               :to="{ name: 'shippers'}"
-              :class="{ nav__link: true,  active: $route.name === 'loads' || $route.name === 'shipmentUploads'  || $route.name === 'singleLoad' }">
+              :class="{ nav__link: true,
+                active: $route.name === 'loads' ||
+                  $route.name === 'shipmentUploads' ||
+                  $route.name === 'singleLoad' ||
+                  $route.name === 'pendingQuotes' }">
                 Shippers
             </router-link>
           </li>
@@ -24,7 +28,7 @@
           </li>
           <li class="nav__item" v-show="!isLoggedIn()">
             <router-link :to="{ name: 'login'}" class="nav__link">Login</router-link>
-            </li>
+          </li>
           <li class="nav__item" v-show="isLoggedIn()">
             <a @click="handleLogout()" class="nav__link">Logout</a>
           </li>

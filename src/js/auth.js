@@ -51,9 +51,12 @@ export default {
           .then(user => utils.handleErrors(user))
           .then((user) => {
             if (user.body.UserType === 'SHIPPER') {
-              console.log(user.body); // eslint-disable-line no-console
               auth.setCompanyID(user.body.CompanyId);
-              router.push({ name: 'shippers' });
+              if (context.$route.query.dest) {
+                router.push({ name: context.$route.query.dest });
+              } else {
+                router.push({ name: 'shippers' });
+              }
             } else {
               router.push({ name: 'carriers' });
             }

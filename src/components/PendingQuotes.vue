@@ -1,4 +1,4 @@
-<!-- src/components/PendingLoads.vue -->
+<!-- src/components/PendingQuotes.vue -->
 
 <template>
   <div class="grid-container">
@@ -23,7 +23,7 @@
                   <th>Price Quote</th>
                   <th>Approve / Reject</th>
                 </thead>
-                <tr v-for="load in loads">
+                <tr v-for="(load, index) in loads">
                   <td class="align-left">
                     {{ load.Id }}
                   </td>
@@ -38,19 +38,21 @@
                     {{ load.Rate.ShipperTotal | currency }}
                   </td>
                   <td>
-                    <button
-                      class="button button--red"
-                      @click="approveRejectLoad(load.Uuid, false)">
-                      Reject
-                    </button>
-                    <button
-                      class="button button--green"
-                      @click="approveRejectLoad(load.Uuid, true)">
-                      Approve
-                    </button>
-                    <p v-if="approveRejectText">
-                      <strong>{{ approveRejectText }}</strong>
-                    </p>
+                    <strong v-if="load.statusMessage">
+                      {{ load.statusMessage }}
+                    </strong>
+                    <div v-else class="no-wrap">
+                      <button
+                        class="button button--red button--small"
+                        @click="approveRejectLoad(load, index, false)">
+                        Reject
+                      </button>
+                      <button
+                        class="button button--green button--small"
+                        @click="approveRejectLoad(load, index, true)">
+                        Approve
+                      </button>
+                    </div>
                   </td>
                 </tr>
               </table>
@@ -82,31 +84,36 @@
       };
     },
     mounted() {
-      loads.getPendingLoads(this, this.$route.params.companyUuid);
+      const COMPANY_ID = auth.getCompanyID();
+      loads.getPendingLoads(this, COMPANY_ID);
     },
     methods: {
-      approveRejectLoad(id, isApproved) {
+      approveRejectLoad(currentLoad, currentIndex, isApproved) {
         const API_URL = constants.APP_BACKEND_URL + constants.API_VERSION;
         const pendingLoadUrl = `${API_URL}/pricing/approval`;
         const USER_CREDS = auth.getUserCreds();
-        Vue.http.post(pendingLoadUrl, {
+        const COMPANY_ID = auth.getCompanyID();
+        Vue.http.post(pendingLoadUrl, '', {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Basic ${USER_CREDS}`,
           },
           params: {
-            loadUuid: id,
+            loadUuid: currentLoad.Uuid,
             approved: isApproved,
-            companyId: this.$route.params.companyId,
+            companyId: COMPANY_ID,
           },
         })
           .then(response => utils.handleErrors(response))
           .then((response) => {
-            console.log(response.body); // eslint-disable-line no-console
-            this.approveRejectText = response.body;
+            if (response.body.status === 'true') {
+              this.loads[currentIndex].statusMessage = 'Approved';
+            } else {
+              this.loads[currentIndex].statusMessage = 'Rejected';
+            }
+            this.$forceUpdate();
           })
           .catch((error) => {
-            console.log(error); // eslint-disable-line no-console
             if (error.message) {
               this.error = error.message;
             } else if (!error.ok && error.bodyText) {

@@ -8,7 +8,7 @@ import Shippers from '@/components/Shippers';
 import Loads from '@/components/Loads';
 import SingleLoad from '@/components/SingleLoad';
 import ShipmentUploads from '@/components/ShipmentUploads';
-import PendingLoads from '@/components/PendingLoads';
+import PendingQuotes from '@/components/PendingQuotes';
 
 import auth from '../auth';
 
@@ -52,9 +52,10 @@ const router = new VueRouter({
       meta: { auth: true },
     },
     {
-      name: 'pendingLoads',
-      path: '/pending-quotes/:companyUuid',
-      component: PendingLoads,
+      name: 'pendingQuotes',
+      path: '/pending-quotes',
+      component: PendingQuotes,
+      meta: { auth: true },
     },
   ],
 });
@@ -63,7 +64,7 @@ router.beforeEach((to, from, next) => {
   const authRequired = to.matched.some(route => route.meta.auth);
   const authed = auth.isLoggedIn();
   if (authRequired && !authed) {
-    next({ name: 'login' });
+    next({ name: 'login', query: { dest: to.name } });
   } else {
     next();
   }

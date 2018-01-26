@@ -2,6 +2,19 @@
 
 .summary {
   display: flex;
+  position: relative;
+}
+
+.summary__button {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  svg {
+    margin-right: rem-calc(5);
+    position: relative;
+    top: rem-calc(1);
+  }
 }
 
 .summary__column {
@@ -17,10 +30,6 @@
 
   + .summary__section {
     margin-top: rem-calc(23);
-  }
-
-  &--text-right {
-    text-align: right;
   }
 }
 

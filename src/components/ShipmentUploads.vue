@@ -34,7 +34,8 @@
                     </svg>
                   </a>
                   <input type="file" id="csvUpload" multiple>
-                  <button class="button button--dark button--csv" @click="uploadFiles">Upload From CSV</button>
+                  <button type="button" class="button button--dark button--csv" @click="uploadFiles">Upload From CSV</button>
+                  <router-link :to="{ name: 'pendingQuotes'}" class="button button--green">View Quotes</router-link>
                 </div>
               </div>
             </div>
@@ -50,7 +51,7 @@
                   <th>Valid Shipments</th>
                   <th>Total Shipments</th>
                 </thead>
-                <tr v-for="(shipment, index) in shipments">
+                <tr v-for="(shipment, index) in sortedShipments">
                   <td>
                     <a :href="convertToCSV(shipment.Filedata)" :download="shipment.FileName + '.' + shipment.Extension">
                       {{ shipment.FileName }}.{{ shipment.Extension }}
@@ -68,13 +69,13 @@
                         shipment.Successes.length < shipment.LoadsAttemptedCount ?
                         'text-red' : 'text-green',
                       ]">
-                      {{ shipment.LoadIds.length }}
+                      {{ successCount(shipment.Successes) }}
                       /
                       {{ shipment.LoadsAttemptedCount }}
                     </span>
                   </td>
                   <td>
-                    {{ shipment.LoadIds.length }}
+                    {{ shipment.LoadsAttemptedCount }}
                   </td>
                 </tr>
               </table>
@@ -128,6 +129,7 @@
               };
 
               shipments.submitShipment(this, fileInfo);
+              console.log(this.shipments); // eslint-disable-line no-console
             });
           }
         });
@@ -144,6 +146,17 @@
         const csvContent = `data:text/csv;charset=utf-8,${fileDataString}`;
         const encodedUri = encodeURI(csvContent);
         return encodedUri;
+      },
+
+      successCount(arrayObj) {
+        return arrayObj.filter(s => s).length;
+      },
+    },
+    computed: {
+      sortedShipments() {
+        this.shipments.sort((a, b) =>
+          new Date(a.TimestampLastModified) - new Date(b.TimestampLastModified));
+        return this.shipments;
       },
     },
   };
