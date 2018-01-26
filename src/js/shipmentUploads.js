@@ -63,7 +63,7 @@ export default {
         if (error.message) {
           context.error = error.message;
         } else if (!error.ok && error.bodyText) {
-          context.error = error.bodyText;
+          context.error = 'Error uploading file.';
         }
       });
   },

@@ -34,7 +34,7 @@
                     </svg>
                   </a>
                   <input type="file" id="csvUpload" multiple>
-                  <button type="button" class="button button--dark button--csv" @click="uploadFiles">Upload From CSV</button>
+                  <button type="button" class="button button--dark button--csv" @click="uploadFiles" accept=".csv">Upload From CSV</button>
                   <router-link :to="{ name: 'pendingQuotes'}" class="button button--green">View Quotes</router-link>
                 </div>
               </div>
@@ -113,26 +113,25 @@
       // Convert CSV to Binary
       document.querySelector('#csvUpload').addEventListener('change', (event) => {
         const filesArray = event.target.files;
-        console.log(filesArray); // eslint-disable-line no-console
-        Array.prototype.forEach.call(filesArray, (file) => {
-          if (file.type === 'text/csv') {
-            utils.getFileDataArray(file).then((data) => {
-              const arrayBuffer = data;
-              const unit8Array = new Uint8Array(arrayBuffer);
-              const array = Array.from(unit8Array);
+        Array.from(filesArray).forEach((file) => {
+          utils.getFileDataArray(file).then((data) => {
+            const arrayBuffer = data;
+            const unit8Array = new Uint8Array(arrayBuffer);
+            const array = Array.from(unit8Array);
 
-              const fileInfo = {
-                FileName: file.name.substr(0, file.name.lastIndexOf('.')),
-                UserId: this.user.Id,
-                PosterName: this.user.ContactInfo.Name,
-                Extension: 'csv',
-                CompanyId: this.user.CompanyId,
-                Filedata: array,
-              };
+            const fileInfo = {
+              FileName: file.name.substr(0, file.name.lastIndexOf('.')),
+              UserId: this.user.Id,
+              PosterName: this.user.ContactInfo.Name,
+              Extension: 'csv',
+              CompanyId: this.user.CompanyId,
+              Filedata: array,
+            };
 
-              shipments.submitShipment(this, fileInfo);
-            });
-          }
+            console.log(fileInfo); // eslint-disable-line no-console
+
+            shipments.submitShipment(this, fileInfo);
+          });
         });
         event.target.value = null;
         return false;
