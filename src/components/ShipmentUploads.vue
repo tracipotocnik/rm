@@ -112,7 +112,9 @@
 
       // Convert CSV to Binary
       document.querySelector('#csvUpload').addEventListener('change', (event) => {
-        Array.from(event.target.files).forEach((file) => {
+        const filesArray = event.target.files;
+        console.log(filesArray); // eslint-disable-line no-console
+        Array.prototype.forEach.call(filesArray, (file) => {
           if (file.type === 'text/csv') {
             utils.getFileDataArray(file).then((data) => {
               const arrayBuffer = data;
@@ -129,10 +131,11 @@
               };
 
               shipments.submitShipment(this, fileInfo);
-              console.log(this.shipments); // eslint-disable-line no-console
             });
           }
         });
+        event.target.value = null;
+        return false;
       });
     },
     methods: {
