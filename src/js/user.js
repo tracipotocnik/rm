@@ -26,7 +26,6 @@ export default {
       .then(response => utils.handleErrors(response))
       .then((response) => {
         context.user = response.body;
-        console.log(response.body); // eslint-disable-line no-console
       })
       .catch((error) => {
         if (error.message) {

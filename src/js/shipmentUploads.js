@@ -25,7 +25,6 @@ export default {
     })
       .then(response => utils.handleErrors(response))
       .then((response) => {
-        console.log(response.body); // eslint-disable-line no-console
         context.shipments = response.body;
       })
       .catch((error) => {
@@ -36,6 +35,7 @@ export default {
         }
       });
   },
+
   submitShipment(context, fileData) {
     const USER_CREDS = auth.getUserCreds();
     const USER_UUID = auth.getUserUUID();
@@ -53,13 +53,10 @@ export default {
     })
       .then(response => utils.handleErrors(response))
       .then((response) => {
-        console.log(response.body); // eslint-disable-line no-console
         context.shipments.push(response.body);
         context.$forceUpdate();
-        console.log(context.shipments); // eslint-disable-line no-console
       })
       .catch((error) => {
-        console.log(error); // eslint-disable-line no-console
         if (error.message) {
           context.error = error.message;
         } else if (!error.ok && error.bodyText) {

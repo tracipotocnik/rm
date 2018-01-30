@@ -1,72 +1,87 @@
 <!-- src/components/Loads.vue -->
 
 <template>
-  <div class="grid-container">
-    <div class="grid-x">
-      <div class="cell">
-        <section class="dashboard">
-          <div class="dashboard__content">
-            <div class="dashboard__top">
-              <div class="dashboard__heading">
-                <h1 class="dashboard__title">Load Dashboard</h1>
-                <input type="text"
-                  placeholder="Enter Load ID #"
-                  v-model="loadId"
-                  v-on:keyup="onLoadIdFilter">
+  <div>
+    <div class="popup">
+      <div class="popup__box">
+        <div class="popup__content">
+          <h2 class="popup__title">Are You Sure?</h2>
+          <p class="popup__body">Removing this load card will delete its information
+          from your Dashboard.</p>
+        </div>
+        <div class="popup__button-group">
+          <button class="popup__button" @click="closePopup">Cancel</button>
+          <button class="popup__button" @click="removeLoad">Confirm</button>
+        </div>
+      </div>
+    </div>
+    <div class="grid-container">
+      <div class="grid-x">
+        <div class="cell">
+          <section class="dashboard">
+            <div class="dashboard__content">
+              <div class="dashboard__top">
+                <div class="dashboard__heading">
+                  <h1 class="dashboard__title">Load Dashboard</h1>
+                  <input type="text"
+                    placeholder="Enter Load ID #"
+                    v-model="loadId"
+                    v-on:keyup="onLoadIdFilter">
+                </div>
+                <div class="dashboard__tabs-wrapper">
+                  <ul class="dashboard__tabs">
+                    <li class="dashboard__tab-item">
+                    <li class="dashboard__tab-item" v-for="state in shipperStates">
+                      <a href="#"
+                        @click.prevent="onStateClick(state)"
+                        :class="{ active: state === filteredState }">
+                        {{ state }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div class="dashboard__tabs-wrapper">
-                <ul class="dashboard__tabs">
-                  <li class="dashboard__tab-item">
-                  <li class="dashboard__tab-item" v-for="state in shipperStates">
-                    <a href="#"
-                      @click.prevent="onStateClick(state)"
-                      :class="{ active: state === filteredState }">
-                      {{ state }}
+              <div class="grid-x grid-margin-x">
+                <div class="cell" v-if="error">
+                  <p>{{ error }}</p>
+                </div>
+                <div class="cell" v-if="!filteredLoads.length && !loadError">
+                  <p>{{ loadingMessage }}</p>
+                </div>
+                <div class="cell" v-if="!filteredLoads && loadError">
+                  <p>{{ noLoadMessage }}</p>
+                </div>
+                <div class="medium-6 large-4 cell" v-for="(load, index) in filteredLoads">
+                  <div :class="{'load-card': true, 'selected': load.isSelected}">
+                    <load-info
+                      :id="load.Id"
+                      :title="load.Description"
+                      :distance="load.DistanceM"
+                      :time="load.AgeHrs"
+                      :price="load.Rate.ShipperTotal"
+                      :pickupCity="load.Pickup.Address.locality"
+                      :pickupState="load.Pickup.Address.regionCode"
+                      :pickupDateStart="load.PickupWindowStartUTC"
+                      :pickupDateEnd="load.PickupWindowEndUTC"
+                      :dropoffCity="load.Dropoff.Address.locality"
+                      :dropoffState="load.Dropoff.Address.regionCode"
+                      :dropoffDateStart="load.DropoffWindowStartUTC"
+                      :dropoffDateEnd="load.DropoffWindowEndUTC"
+                    ></load-info>
+                    <div class="load-card__button">
+                      <router-link
+                        :to="{ name: 'singleLoad', params: {id: load.Uuid} }"
+                        class="button button--dark">View</router-link>
+                    </div>
+                    <a href="#" class="load-card__remove" @click.prevent="openPopup(load, index)">
+                      Remove
                     </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="grid-x grid-margin-x">
-              <div class="cell" v-if="error">
-                <p>{{ error }}</p>
-              </div>
-              <div class="cell" v-if="!filteredLoads.length && !loadError">
-                <p>{{ loadingMessage }}</p>
-              </div>
-              <div class="cell" v-if="!filteredLoads && loadError">
-                <p>{{ noLoadMessage }}</p>
-              </div>
-              <div class="medium-6 large-4 cell" v-for="(load, index) in filteredLoads">
-                <div class="load-card">
-                  <load-info
-                    :id="load.Id"
-                    :title="load.Description"
-                    :distance="load.DistanceM"
-                    :time="load.AgeHrs"
-                    :price="load.Rate.ShipperTotal"
-                    :pickupCity="load.Pickup.Address.locality"
-                    :pickupState="load.Pickup.Address.regionCode"
-                    :pickupDateStart="load.PickupWindowStartUTC"
-                    :pickupDateEnd="load.PickupWindowEndUTC"
-                    :dropoffCity="load.Dropoff.Address.locality"
-                    :dropoffState="load.Dropoff.Address.regionCode"
-                    :dropoffDateStart="load.DropoffWindowStartUTC"
-                    :dropoffDateEnd="load.DropoffWindowEndUTC"
-                  ></load-info>
-                  <div class="load-card__button">
-                    <router-link
-                      :to="{ name: 'singleLoad', params: {id: load.Uuid} }"
-                      class="button button--dark">View</router-link>
                   </div>
-                  <!-- <a href="#" class="load-card__remove" @click.prevent="removeLoad(index)">
-                    Remove
-                  </a> -->
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
     </div>
   </div>
@@ -90,6 +105,8 @@
         loadingMessage: 'Loading...',
         noLoadMessage: 'No results found.',
         loadError: false,
+        currentLoad: '',
+        currentIndex: '',
       };
     },
     components: {
@@ -105,8 +122,24 @@
       onStateClick(state) {
         this.filteredState = state;
       },
-      removeLoad(currentIndex) {
-        this.$delete(this.loads, currentIndex);
+      openPopup(load, index) {
+        this.currentLoad = load;
+        this.currentIndex = index;
+        this.loads[index].isSelected = true;
+        document.body.classList.add('popup-open');
+        this.$forceUpdate();
+      },
+      closePopup() {
+        this.loads[this.currentIndex].isSelected = false;
+        this.currentLoad = '';
+        this.currentIndex = '';
+        document.body.classList.remove('popup-open');
+        this.$forceUpdate();
+      },
+      removeLoad() {
+        this.$delete(this.loads, this.currentIndex);
+        loads.removeLoad(this, this.currentLoad);
+        this.closePopup();
       },
     },
     computed: {

@@ -13,6 +13,7 @@ const LOAD_URL = '/load/allLoads?isShipper=true&userUuid=';
 const SINGLE_LOAD_URL = '/load/?loadUuid=';
 const LOAD_LOCATION_URL = '/loadStatus/location?loadUuid=';
 const PENDING_LOADS_URL = '/pricing/pendingLoads?companyId=';
+const REMOVE_LOAD_URL = '/load/delete';
 
 export default {
   getLoads(context) {
@@ -55,7 +56,6 @@ export default {
     })
       .then(response => utils.handleErrors(response))
       .then((response) => {
-        console.log(response.body); // eslint-disable-line no-console
         context.load = response.body;
       })
       .catch((error) => {
@@ -78,7 +78,6 @@ export default {
     })
       .then(response => utils.handleErrors(response))
       .then((response) => {
-        console.log(response.body); // eslint-disable-line no-console
         context.loadLocation = response.body;
       })
       .catch((error) => {
@@ -101,7 +100,6 @@ export default {
     })
       .then(response => utils.handleErrors(response))
       .then((response) => {
-        console.log(response.body); // eslint-disable-line no-console
         context.loads = response.body;
       })
       .catch((error) => {
@@ -109,6 +107,28 @@ export default {
           context.location_error = error.message;
         } else if (!error.ok && error.bodyText) {
           context.location_error = error.bodyText;
+        }
+      });
+  },
+
+  removeLoad(context, load) {
+    const USER_CREDS = auth.getUserCreds();
+    const submitShipmentUrl = API_URL + REMOVE_LOAD_URL;
+    Vue.http.post(submitShipmentUrl, load, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${USER_CREDS}`,
+      },
+    })
+      .then(response => utils.handleErrors(response))
+      .then((response) => {
+        console.log(response); // eslint-disable-line no-console
+      })
+      .catch((error) => {
+        if (error.message) {
+          context.error = error.message;
+        } else if (!error.ok && error.bodyText) {
+          context.error = 'Error uploading file.';
         }
       });
   },

@@ -128,8 +128,6 @@
               Filedata: array,
             };
 
-            console.log(fileInfo); // eslint-disable-line no-console
-
             shipments.submitShipment(this, fileInfo);
           });
         });
@@ -157,7 +155,7 @@
     computed: {
       sortedShipments() {
         this.shipments.sort((a, b) =>
-          new Date(a.TimestampLastModified) - new Date(b.TimestampLastModified));
+          new Date(b.TimestampLastModified) - new Date(a.TimestampLastModified));
         return this.shipments;
       },
     },

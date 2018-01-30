@@ -16,3 +16,13 @@
   margin-top: auto;
   text-align: center;
 }
+
+.load-card__remove {
+  font-size: rem-calc(16);
+  margin: rem-calc(0 -10 -8) auto;
+
+  &.top {
+    margin-bottom: rem-calc(-5);
+    margin-top: rem-calc(-5);
+  }
+}
