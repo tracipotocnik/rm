@@ -9,6 +9,7 @@ import Loads from '@/components/Loads';
 import SingleLoad from '@/components/SingleLoad';
 import ShipmentUploads from '@/components/ShipmentUploads';
 import PendingQuotes from '@/components/PendingQuotes';
+import PageNotFound from '@/components/404';
 
 import auth from '../auth';
 
@@ -57,13 +58,21 @@ const router = new VueRouter({
       component: PendingQuotes,
       meta: { auth: true },
     },
+    {
+      name: '404',
+      path: '/404',
+      component: PageNotFound,
+    },
   ],
 });
 
 router.beforeEach((to, from, next) => {
   const authRequired = to.matched.some(route => route.meta.auth);
   const authed = auth.isLoggedIn();
-  if (authRequired && !authed) {
+
+  if (!to.matched.length) {
+    next({ name: '404' });
+  } else if (authRequired && !authed) {
     next({ name: 'login', query: { dest: to.name } });
   } else {
     next();

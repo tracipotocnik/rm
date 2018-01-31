@@ -82,26 +82,26 @@
                               <p class="summary__label">Status:</p>
                               <p class="summary__value">{{ loadState(load.LoadState) }}</p>
                             </div>
-                            <div class="summary__item">
+                            <div class="summary__item" v-if="load.DropoffWindowStartUTC">
                               <p class="summary__label">Delivery Due:</p>
                               <p class="summary__value">{{ load.DropoffWindowStartUTC | date }}</p>
                             </div>
-                            <div class="summary__item">
+                            <div class="summary__item" v-if="load.LoadDetails.ServiceType">
                               <p class="summary__label">Service Type:</p>
                               <p class="summary__value">{{ load.LoadDetails.ServiceType }}</p>
                             </div>
-                            <div class="summary__item">
+                            <div class="summary__item" v-if="load.LoadDetails.PieceCount || load.LoadDetails.PackageType">
                               <p class="summary__label">Count &amp; Packing:</p>
                               <p class="summary__value">
                                 {{ load.LoadDetails.PieceCount }}
                                 {{ load.LoadDetails.PackageType }}
                               </p>
                             </div>
-                            <div class="summary__item">
+                            <div class="summary__item" v-if="load.Rate.ShipperTotal">
                               <p class="summary__label">Price:</p>
                               <p class="summary__value">{{ load.Rate.ShipperTotal | currency }}</p>
                             </div>
-                            <div class="summary__item">
+                            <div class="summary__item" v-if="load.AgeHrs > 0">
                               <p class="summary__label">Age:</p>
                               <p class="summary__value">{{ load.AgeHrs | time }}</p>
                             </div>
@@ -178,9 +178,11 @@
       loads.getSingleLoad(this, this.$route.params.id);
       loads.getLocation(this, this.$route.params.id);
 
-      this.refreshMapTimer = setInterval(() => {
-        loads.getLocation(this, this.$route.params.id);
-      }, 5000);
+      if (this.loadLocation) {
+        this.refreshMapTimer = setInterval(() => {
+          loads.getLocation(this, this.$route.params.id);
+        }, 5000);
+      }
     },
     beforeDestroy() {
       clearInterval(this.refreshMapTimer);

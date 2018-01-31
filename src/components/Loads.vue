@@ -52,7 +52,7 @@
                   <p>{{ noLoadMessage }}</p>
                 </div>
                 <div class="medium-6 large-4 cell" v-for="(load, index) in filteredLoads">
-                  <div :class="{'load-card': true, 'selected': load.isSelected}">
+                  <div class="load-card">
                     <load-info
                       :id="load.Id"
                       :title="load.Description"
@@ -73,7 +73,7 @@
                         :to="{ name: 'singleLoad', params: {id: load.Uuid} }"
                         class="button button--dark">View</router-link>
                     </div>
-                    <a href="#" class="load-card__remove" @click.prevent="openPopup(load, index)">
+                    <a href="#" class="load-card__remove" @click.prevent="openPopup(load, index, $event)">
                       Remove
                     </a>
                   </div>
@@ -122,19 +122,17 @@
       onStateClick(state) {
         this.filteredState = state;
       },
-      openPopup(load, index) {
+      openPopup(load, index, event) {
         this.currentLoad = load;
         this.currentIndex = index;
-        this.loads[index].isSelected = true;
+        event.target.closest('.load-card').classList.add('selected');
         document.body.classList.add('popup-open');
-        this.$forceUpdate();
       },
       closePopup() {
-        this.loads[this.currentIndex].isSelected = false;
+        document.querySelector('.load-card.selected').classList.remove('selected');
         this.currentLoad = '';
         this.currentIndex = '';
         document.body.classList.remove('popup-open');
-        this.$forceUpdate();
       },
       removeLoad() {
         this.$delete(this.loads, this.currentIndex);
