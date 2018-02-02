@@ -73,7 +73,10 @@
                         :to="{ name: 'singleLoad', params: {id: load.Uuid} }"
                         class="button button--dark">View</router-link>
                     </div>
-                    <a href="#" class="load-card__remove" @click.prevent="openPopup(load, index, $event)">
+                    <a v-if="loadState(load.LoadState) === 'Waiting'"
+                      href="#"
+                      class="load-card__remove"
+                      @click.prevent="openPopup(load, index, $event)">
                       Remove
                     </a>
                   </div>
@@ -100,7 +103,7 @@
         error: '',
         loads: [],
         loadId: '',
-        filteredState: '',
+        filteredState: 'Waiting',
         shipperStates: constants.ShipperPageTypes,
         loadingMessage: 'Loading...',
         noLoadMessage: 'No results found.',
@@ -121,6 +124,9 @@
       },
       onStateClick(state) {
         this.filteredState = state;
+      },
+      loadState(state) {
+        return loadStates.convertLoadState(state);
       },
       openPopup(load, index, event) {
         this.currentLoad = load;

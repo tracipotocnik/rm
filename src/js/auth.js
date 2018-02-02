@@ -17,6 +17,9 @@ export default {
   // User object will let us check authentication status
   user: {
     creds: auth.getUserCreds(),
+    uuid: auth.getUserUUID(),
+    companyId: auth.getCompanyID(),
+    username: auth.getUsername(),
   },
 
   login(context, creds) {
@@ -37,10 +40,12 @@ export default {
         auth.clearUsername();
 
         this.user.creds = auth.setBasicAuthentication(creds);
+        this.user.uuid = response.body.content;
+        this.user.username = creds.username;
 
         auth.setUserCreds(this.user.creds);
-        auth.setUserUUID(response.body.content);
-        auth.setUsername(creds.username);
+        auth.setUserUUID(this.user.uuid);
+        auth.setUsername(this.user.username);
 
         Vue.http.get(userQueryUrl, {
           headers: {
@@ -51,7 +56,8 @@ export default {
           .then(user => utils.handleErrors(user))
           .then((user) => {
             if (user.body.UserType === 'SHIPPER') {
-              auth.setCompanyID(user.body.CompanyId);
+              this.user.companyId = user.body.CompanyId;
+              auth.setCompanyID(this.user.companyId);
               if (context.$route.query.dest) {
                 router.push({ name: context.$route.query.dest });
               } else {
@@ -80,7 +86,10 @@ export default {
 
   isLoggedIn() {
     let authenticated = false;
-    if (this.user.creds) {
+    if (this.user.creds &&
+        this.user.uuid &&
+        this.user.companyId &&
+        this.user.username) {
       authenticated = true;
     }
     return authenticated;
@@ -91,6 +100,5 @@ export default {
     auth.clearUserUUID();
     auth.clearCompanyID();
     auth.clearUsername();
-    window.location.href = '/';
   },
 };

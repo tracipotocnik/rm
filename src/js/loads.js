@@ -121,9 +121,6 @@ export default {
       },
     })
       .then(response => utils.handleErrors(response))
-      .then((response) => {
-        console.log(response); // eslint-disable-line no-console
-      })
       .catch((error) => {
         if (error.message) {
           context.error = error.message;

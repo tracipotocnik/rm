@@ -6,14 +6,14 @@ export default {
       state === 'NEW' ||
       state === 'PRICED' ||
       state === 'SCHEDULABLE' ||
-      state === 'SCHEDULABLE_PENDING' ||
-      state === 'ROUTEDGENERATED') {
+      state === 'SCHEDULABLE_PENDING') {
       return constants.ShipperPageTypes.SHIPPER_WAITING;
     } else if (
       state === 'ROUTEDAPPROVED' ||
       state === 'CARRIERLOADAGREEMENTSIGNED' ||
       state === 'CARRIERBOLSIGNED' ||
-      state === 'INTRANSIT') {
+      state === 'INTRANSIT' ||
+      state === 'ROUTEDGENERATED') {
       return constants.ShipperPageTypes.SHIPPER_INTRANSIT;
     } else if (
       state === 'LOSTDESTROYED' ||

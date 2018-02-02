@@ -59,6 +59,7 @@ export default {
   methods: {
     handleLogout() {
       auth.logout();
+      window.location.href = '/';
     },
     isLoggedIn() {
       return auth.isLoggedIn();

@@ -29,7 +29,10 @@
                 </div>
                 <div class="large-4 cell">
                   <div class="load-card" v-if="load">
-                    <a href="#" class="load-card__remove top" @click.prevent="openPopup">
+                    <a v-if="loadState(load.LoadState) === 'Waiting'"
+                      href="#"
+                      class="load-card__remove top"
+                      @click.prevent="openPopup">
                       Remove
                     </a>
                     <load-info

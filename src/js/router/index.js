@@ -73,6 +73,7 @@ router.beforeEach((to, from, next) => {
   if (!to.matched.length) {
     next({ name: '404' });
   } else if (authRequired && !authed) {
+    auth.logout();
     next({ name: 'login', query: { dest: to.name } });
   } else {
     next();
