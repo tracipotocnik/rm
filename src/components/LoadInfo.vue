@@ -1,15 +1,15 @@
 <template>
   <div :class="{'load-info': true, 'load-info--large': isLarge}">
-    <p class="load-info__pretitle load-info__pretitle--blue" v-show="status">
+    <p class="load-info__pretitle load-info__pretitle--blue" v-if="status">
       Status: <strong>{{ status }}</strong>
     </p>
-    <p class="load-info__pretitle load-info__pretitle--blue" v-show="id">
+    <p class="load-info__pretitle load-info__pretitle--blue" v-if="id">
       Load ID: <strong>{{ id }}</strong>
     </p>
     <h3 class="load-info__title">{{ title }}</h3>
     <div v-if="distance || time || price" class="load-info__details">
       <p v-if="distance" class="load-info__details__item">
-        Distance: <span class="no-wrap">{{ distance | numberCommas }} mi</span>
+        Distance: <span class="no-wrap">{{ distance | miles | numberCommas }} mi</span>
       </p>
       <p v-if="time && time > 0" class="load-info__details__item">
         Age: {{ time | time }}
@@ -25,8 +25,16 @@
         </p>
         <div v-if="pickupDateStart">
           <p>Pick Up Window</p>
-          <p>{{ pickupDateStart | date }}</p>
-          <p>{{ pickupDateStart | datetime }} - {{ pickupDateEnd | datetime }}</p>
+          <p>
+            {{ date(pickupDateStart) }}
+            <span v-if="!sameDate(pickupDateStart, pickupDateEnd)">
+              - {{ date(pickupDateEnd) }}
+            </span>
+          </p>
+          <p>
+            {{ datetime(pickupDateStart) }} - {{ datetime(pickupDateEnd) }}
+            {{ timeZone(pickupTimeZone) }}
+          </p>
         </div>
         <div class="load-info__locations__arrow">
           <svg width="19px" height="14px" viewBox="0 0 19 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -52,8 +60,16 @@
         </p>
         <div v-if="dropoffDateStart">
           <p>Delivery Window</p>
-          <p>{{ dropoffDateStart | date }}</p>
-          <p>{{ dropoffDateStart | datetime }} - {{ dropoffDateEnd | datetime }}</p>
+          <p>
+            {{ date(dropoffDateStart) }}
+            <span v-if="!sameDate(dropoffDateStart, dropoffDateEnd)">
+              - {{ date(dropoffDateEnd) }}
+            </span>
+          </p>
+          <p>
+            {{ datetime(dropoffDateStart) }} - {{ datetime(dropoffDateEnd) }}
+            {{ timeZone(dropoffTimeZone) }}
+          </p>
         </div>
       </div>
     </div>
@@ -61,6 +77,8 @@
 </template>
 
 <script>
+  import utils from '../js/utilities/utils';
+
   export default {
     props: [
       'isLarge',
@@ -74,10 +92,29 @@
       'pickupState',
       'pickupDateStart',
       'pickupDateEnd',
+      'pickupTimeZone',
       'dropoffCity',
       'dropoffState',
       'dropoffDateStart',
       'dropoffDateEnd',
+      'dropoffTimeZone',
     ],
+    methods: {
+      date(value) {
+        return utils.date(value);
+      },
+      datetime(value) {
+        return utils.datetime(value);
+      },
+      sameDate(date1, date2) {
+        return utils.sameDate(date1, date2);
+      },
+      timeZone(timeZone) {
+        if (timeZone) {
+          return utils.toTimeZone(timeZone);
+        }
+        return false;
+      },
+    },
   };
 </script>

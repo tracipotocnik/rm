@@ -34,7 +34,7 @@
                     </svg>
                   </a>
                   <input type="file" id="csvUpload" multiple>
-                  <button type="button" class="button button--dark button--csv" @click="uploadFiles" accept=".csv">Upload From CSV</button>
+                  <button type="button" class="button button--dark button--csv" @click="uploadFiles" accept=".csv">Upload CSV</button>
                   <router-link :to="{ name: 'pendingQuotes'}" class="button button--green">View Quotes</router-link>
                 </div>
               </div>
@@ -46,7 +46,7 @@
               <table class="table">
                 <thead>
                   <th>Name</th>
-                  <th>Date</th>
+                  <th>Date Uploaded</th>
                   <th>Uploaded By</th>
                   <th>Valid Shipments</th>
                   <th>Total Shipments</th>

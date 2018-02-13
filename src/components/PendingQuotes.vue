@@ -8,7 +8,7 @@
           <div class="dashboard__content">
             <div class="dashboard__top">
               <div class="dashboard__heading">
-                <h1 class="dashboard__title">Pending Load Price Quotes</h1>
+                <h1 class="dashboard__title">Pending Price Quotes</h1>
               </div>
             </div>
             <div class="grid-x grid-margin-x">
@@ -19,7 +19,7 @@
                 <thead>
                   <th class="align-left">Load ID</th>
                   <th class="align-left">Commodity &amp; Description</th>
-                  <th>Date</th>
+                  <th>Date Uploaded</th>
                   <th>Price Quote</th>
                   <th>Approve / Reject</th>
                 </thead>

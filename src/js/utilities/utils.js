@@ -1,3 +1,5 @@
+import moment from 'moment-timezone';
+
 export default {
   handleErrors(response) {
     if (!response.ok) {
@@ -21,5 +23,37 @@ export default {
       result += String.fromCharCode(Number(element, 2));
     });
     return result;
+  },
+
+  date(value) {
+    if (!value && value !== 0) return '';
+    const date = (new Date(value)).toLocaleString([], {
+      weekday: 'short',
+      month: 'numeric',
+      day: 'numeric',
+    });
+    return date;
+  },
+
+  datetime(value) {
+    if (!value && value !== 0) return '';
+    const date = (new Date(value)).toLocaleString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+    return date;
+  },
+
+  sameDate(date1, date2) {
+    if (this.date(date1) === this.date(date2)) {
+      return true;
+    }
+    return false;
+  },
+
+  // usage: toTimeZone("America/Los_Angeles")
+  toTimeZone(timeZone) {
+    return moment().tz(timeZone).format('z');
   },
 };

@@ -9,6 +9,10 @@
   .load-info--large & {
     font-size: rem-calc(24);
   }
+
+  .load-card--waiting & {
+    padding-right: rem-calc(70);
+  }
 }
 
 .load-info__title {

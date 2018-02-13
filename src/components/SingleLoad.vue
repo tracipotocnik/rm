@@ -28,7 +28,7 @@
                   <p>{{ location_error }}</p>
                 </div>
                 <div class="large-4 cell">
-                  <div class="load-card" v-if="load">
+                  <div :class="{'load-card': true, 'load-card--waiting': loadState(load.LoadState) === 'Waiting'}" v-if="load">
                     <a v-if="loadState(load.LoadState) === 'Waiting'"
                       href="#"
                       class="load-card__remove top"
@@ -43,10 +43,12 @@
                       :pickupState="load.Pickup.Address.regionCode"
                       :pickupDateStart="load.PickupWindowStartUTC"
                       :pickupDateEnd="load.PickupWindowEndUTC"
+                      :pickupTimeZone="load.Pickup.TimeZone"
                       :dropoffCity="load.Dropoff.Address.locality"
                       :dropoffState="load.Dropoff.Address.regionCode"
                       :dropoffDateStart="load.DropoffWindowStartUTC"
                       :dropoffDateEnd="load.DropoffWindowEndUTC"
+                      :dropoffTimeZone="load.Dropoff.TimeZone"
                     ></load-info>
                   </div>
                 </div>
@@ -87,7 +89,7 @@
                             </div>
                             <div class="summary__item" v-if="load.DropoffWindowStartUTC">
                               <p class="summary__label">Delivery Due:</p>
-                              <p class="summary__value">{{ load.DropoffWindowStartUTC | date }}</p>
+                              <p class="summary__value">{{ date(load.DropoffWindowEndUTC) }}</p>
                             </div>
                             <div class="summary__item" v-if="load.LoadDetails.ServiceType">
                               <p class="summary__label">Service Type:</p>
@@ -128,7 +130,7 @@
                       <div class="summary__section">
                         <h3 class="summary__title">Distance</h3>
                         <div class="summary__container">
-                          <p class="summary__body">{{ load.DistanceM | numberCommas }} mi</p>
+                          <p class="summary__body">{{ load.DistanceM | miles | numberCommas }} mi</p>
                         </div>
                       </div>
                     </div>
@@ -161,6 +163,7 @@
   import loads from '../js/loads';
   import loadStates from '../js/loadStates';
   import router from '../js/router';
+  import utils from '../js/utilities/utils';
 
   export default {
     data() {
@@ -204,6 +207,9 @@
         loads.removeLoad(this, this.load);
         this.closePopup();
         router.push({ name: 'loads' });
+      },
+      date(value) {
+        return utils.date(value);
       },
     },
   };

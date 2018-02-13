@@ -63,10 +63,12 @@
                       :pickupState="load.Pickup.Address.regionCode"
                       :pickupDateStart="load.PickupWindowStartUTC"
                       :pickupDateEnd="load.PickupWindowEndUTC"
+                      :pickupTimeZone="load.Pickup.TimeZone"
                       :dropoffCity="load.Dropoff.Address.locality"
                       :dropoffState="load.Dropoff.Address.regionCode"
                       :dropoffDateStart="load.DropoffWindowStartUTC"
                       :dropoffDateEnd="load.DropoffWindowEndUTC"
+                      :dropoffTimeZone="load.Dropoff.TimeZone"
                     ></load-info>
                     <div class="load-card__button">
                       <router-link

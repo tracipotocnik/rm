@@ -55,10 +55,12 @@
                   :pickupState="load.Pickup.Address.regionCode"
                   :pickupDateStart="load.PickupWindowStartUTC"
                   :pickupDateEnd="load.PickupWindowEndUTC"
+                  :pickupTimeZone="load.Pickup.TimeZone"
                   :dropoffCity="load.Dropoff.Address.locality"
                   :dropoffState="load.Dropoff.Address.regionCode"
                   :dropoffDateStart="load.DropoffWindowStartUTC"
                   :dropoffDateEnd="load.DropoffWindowEndUTC"
+                  :dropoffTimeZone="load.Dropoff.TimeZone"
                 ></load-info>
               </div>
               <google-map
@@ -127,7 +129,7 @@
         load: '',
         loadId: '',
         loadingMessage: 'Loading...',
-        noLoadMessage: 'Load ID not found.',
+        noLoadMessage: 'Load not found.',
         loadError: false,
       };
     },

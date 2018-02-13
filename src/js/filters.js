@@ -7,6 +7,11 @@ Vue.filter('numberCommas', (value) => {
   return numberWithCommas;
 });
 
+Vue.filter('miles', (meters) => {
+  if (!meters && meters !== 0) return '';
+  return (meters / 1000) * 0.6;
+});
+
 Vue.filter('time', (hours) => {
   if (!hours && hours !== 0) return '';
   const days = Math.floor(hours / 24);
@@ -55,16 +60,6 @@ Vue.filter('currency', (number, currencySymbol, decimalCount) => {
     float;
 });
 
-Vue.filter('date', (value) => {
-  if (!value && value !== 0) return '';
-  const date = (new Date(value)).toLocaleString([], {
-    weekday: 'short',
-    month: 'numeric',
-    day: 'numeric',
-  });
-  return date;
-});
-
 Vue.filter('dateShort', (value) => {
   if (!value && value !== 0) return '';
   const date = (new Date(value)).toLocaleString([], {
@@ -72,15 +67,5 @@ Vue.filter('dateShort', (value) => {
     day: '2-digit',
     year: '2-digit',
   }).replace(/\//g, ' / ');
-  return date;
-});
-
-Vue.filter('datetime', (value) => {
-  if (!value && value !== 0) return '';
-  const date = (new Date(value)).toLocaleString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true,
-  });
   return date;
 });
