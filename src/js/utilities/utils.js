@@ -25,35 +25,27 @@ export default {
     return result;
   },
 
-  date(value) {
-    if (!value && value !== 0) return '';
-    const date = (new Date(value)).toLocaleString([], {
-      weekday: 'short',
-      month: 'numeric',
-      day: 'numeric',
-    });
+  date(time, timezone) {
+    if ((!time && time !== 0) || !timezone) return '';
+    const date = moment(time).tz(timezone).format('ddd, M/D');
     return date;
   },
 
-  datetime(value) {
-    if (!value && value !== 0) return '';
-    const date = (new Date(value)).toLocaleString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    });
-    return date;
+  time(time, timezone) {
+    if ((!time && time !== 0) || !timezone) return '';
+    const timeFormatted = moment(time).tz(timezone).format('kk:mm');
+    return timeFormatted;
   },
 
-  sameDate(date1, date2) {
-    if (this.date(date1) === this.date(date2)) {
+  sameDate(date1, date1TZ, date2, date2TZ) {
+    if (this.date(date1, date1TZ) === this.date(date2, date2TZ)) {
       return true;
     }
     return false;
   },
 
   // usage: toTimeZone("America/Los_Angeles")
-  toTimeZone(timeZone) {
-    return moment().tz(timeZone).format('z');
+  toTimeZone(timezone) {
+    return moment().tz(timezone).format('z');
   },
 };

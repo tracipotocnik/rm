@@ -89,7 +89,7 @@
                             </div>
                             <div class="summary__item" v-if="load.DropoffWindowStartUTC">
                               <p class="summary__label">Delivery Due:</p>
-                              <p class="summary__value">{{ date(load.DropoffWindowEndUTC) }}</p>
+                              <p class="summary__value">{{ date(load.DropoffWindowEndUTC, load.Dropoff.TimeZone) }}</p>
                             </div>
                             <div class="summary__item" v-if="load.LoadDetails.ServiceType">
                               <p class="summary__label">Service Type:</p>
@@ -208,8 +208,8 @@
         this.closePopup();
         router.push({ name: 'loads' });
       },
-      date(value) {
-        return utils.date(value);
+      date(time, timezone) {
+        return utils.date(time, timezone);
       },
     },
   };

@@ -49,7 +49,7 @@
                   :status="loadState(load.LoadState)"
                   :title="load.Description"
                   :distance="load.DistanceM"
-                  :time="load.AgeHrs"
+                  :age="load.AgeHrs"
                   :price="load.Rate.ShipperTotal"
                   :pickupCity="load.Pickup.Address.locality"
                   :pickupState="load.Pickup.Address.regionCode"

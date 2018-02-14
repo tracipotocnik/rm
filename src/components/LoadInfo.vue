@@ -11,8 +11,8 @@
       <p v-if="distance" class="load-info__details__item">
         Distance: <span class="no-wrap">{{ distance | miles | numberCommas }} mi</span>
       </p>
-      <p v-if="time && time > 0" class="load-info__details__item">
-        Age: {{ time | time }}
+      <p v-if="age && age > 0" class="load-info__details__item">
+        Age: {{ age | time }}
       </p>
       <p v-if="price" class="load-info__details__item">
         <strong>{{ price | currency }}</strong>
@@ -26,13 +26,13 @@
         <div v-if="pickupDateStart">
           <p>Pick Up Window</p>
           <p>
-            {{ date(pickupDateStart) }}
-            <span v-if="!sameDate(pickupDateStart, pickupDateEnd)">
-              - {{ date(pickupDateEnd) }}
+            {{ date(pickupDateStart, pickupTimeZone) }}
+            <span v-if="!sameDate(pickupDateStart, pickupTimeZone, pickupDateEnd, pickupTimeZone)">
+              - {{ date(pickupDateEnd, pickupTimeZone) }}
             </span>
           </p>
           <p>
-            {{ datetime(pickupDateStart) }} - {{ datetime(pickupDateEnd) }}
+            {{ time(pickupDateStart, pickupTimeZone) }} - {{ time(pickupDateEnd, pickupTimeZone) }}
             {{ timeZone(pickupTimeZone) }}
           </p>
         </div>
@@ -61,13 +61,13 @@
         <div v-if="dropoffDateStart">
           <p>Delivery Window</p>
           <p>
-            {{ date(dropoffDateStart) }}
-            <span v-if="!sameDate(dropoffDateStart, dropoffDateEnd)">
-              - {{ date(dropoffDateEnd) }}
+            {{ date(dropoffDateStart, dropoffTimeZone) }}
+            <span v-if="!sameDate(dropoffDateStart, dropoffTimeZone, dropoffDateEnd, dropoffTimeZone)">
+              - {{ date(dropoffDateEnd, dropoffTimeZone) }}
             </span>
           </p>
           <p>
-            {{ datetime(dropoffDateStart) }} - {{ datetime(dropoffDateEnd) }}
+            {{ time(dropoffDateStart, dropoffTimeZone) }} - {{ time(dropoffDateEnd, dropoffTimeZone) }}
             {{ timeZone(dropoffTimeZone) }}
           </p>
         </div>
@@ -86,7 +86,7 @@
       'id',
       'title',
       'distance',
-      'time',
+      'age',
       'price',
       'pickupCity',
       'pickupState',
@@ -100,18 +100,18 @@
       'dropoffTimeZone',
     ],
     methods: {
-      date(value) {
-        return utils.date(value);
+      date(time, timezone) {
+        return utils.date(time, timezone);
       },
-      datetime(value) {
-        return utils.datetime(value);
+      time(time, timezone) {
+        return utils.time(time, timezone);
       },
-      sameDate(date1, date2) {
-        return utils.sameDate(date1, date2);
+      sameDate(date1, date1TZ, date2, date2TZ) {
+        return utils.sameDate(date1, date1TZ, date2, date2TZ);
       },
-      timeZone(timeZone) {
-        if (timeZone) {
-          return utils.toTimeZone(timeZone);
+      timeZone(timezone) {
+        if (timezone) {
+          return utils.toTimeZone(timezone);
         }
         return false;
       },
