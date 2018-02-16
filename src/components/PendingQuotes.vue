@@ -39,7 +39,12 @@
                   </td>
                   <td>
                     <strong v-if="load.statusMessage">
-                      {{ load.statusMessage }}
+                      <span v-if="load.statusMessage === 'true'" class="text-green">
+                        Approve
+                      </span>
+                      <span v-else class="text-red">
+                        Reject
+                      </span>
                     </strong>
                     <div v-else class="no-wrap">
                       <button
@@ -106,11 +111,7 @@
         })
           .then(response => utils.handleErrors(response))
           .then((response) => {
-            if (response.body.status === 'true') {
-              this.loads[currentIndex].statusMessage = 'Approved';
-            } else {
-              this.loads[currentIndex].statusMessage = 'Rejected';
-            }
+            this.loads[currentIndex].statusMessage = response.body.status;
             this.$forceUpdate();
           })
           .catch((error) => {

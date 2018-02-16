@@ -55,6 +55,7 @@
                   <div class="load-card">
                     <load-info
                       :id="load.Id"
+                      :commodity="load.LoadDetails.CommodityType"
                       :title="load.Description"
                       :distance="load.DistanceM"
                       :age="load.AgeHrs"

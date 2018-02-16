@@ -1,10 +1,13 @@
 <template>
   <div :class="{'load-info': true, 'load-info--large': isLarge}">
-    <p class="load-info__pretitle load-info__pretitle--blue" v-if="status">
+    <p class="load-info__pretitle" v-if="status">
       Status: <strong>{{ status }}</strong>
     </p>
     <p class="load-info__pretitle load-info__pretitle--blue" v-if="id">
       Load ID: <strong>{{ id }}</strong>
+    </p>
+    <p class="load-info__pretitle" v-if="commodity">
+      Commodity: <strong>{{ commodity }}</strong>
     </p>
     <h3 class="load-info__title">{{ title }}</h3>
     <div v-if="distance || time || price" class="load-info__details">
@@ -84,6 +87,7 @@
       'isLarge',
       'status',
       'id',
+      'commodity',
       'title',
       'distance',
       'age',

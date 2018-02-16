@@ -48,6 +48,7 @@
                   v-if="load"
                   :status="loadState(load.LoadState)"
                   :title="load.Description"
+                  :commodity="load.LoadDetails.CommodityType"
                   :distance="load.DistanceM"
                   :age="load.AgeHrs"
                   :price="load.Rate.ShipperTotal"

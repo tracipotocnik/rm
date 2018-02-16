@@ -9,7 +9,7 @@
       </a>
       <nav class="header__nav">
         <ul class="nav">
-          <li class="nav__item"><router-link to="/" class="nav__link">Home</router-link></li>
+          <li class="nav__item"><a href="https://routemarket.com" class="nav__link">Home</a></li>
           <li class="nav__item">
             <router-link
               :to="{ name: 'shippers'}"
@@ -21,11 +21,11 @@
                 Shippers
             </router-link>
           </li>
-          <li class="nav__item"><router-link to="/carriers" class="nav__link">Carriers</router-link></li>
-          <li class="nav__item"><router-link to="/learn-more" class="nav__link">Learn More</router-link></li>
-          <li class="nav__item" v-show="!isLoggedIn()">
-            <router-link to="/learn-more" class="nav__link">Sign Up</router-link>
-          </li>
+          <li class="nav__item"><a href="https://routemarket.com/carriers" class="nav__link">Carriers</a></li>
+          <li class="nav__item"><a href="https://routemarket.com/learn-more" class="nav__link">Learn More</a></li>
+          <!-- <li class="nav__item" v-show="!isLoggedIn()">
+            <router-link :to="{ name: 'login'}" class="nav__link">Sign Up</router-link>
+          </li> -->
           <li class="nav__item" v-show="!isLoggedIn()">
             <router-link :to="{ name: 'login'}" class="nav__link">Login</router-link>
           </li>
@@ -41,9 +41,9 @@
     </div>
     <footer class="footer">
       <ul class="footer__nav">
-        <li class="footer__nav__item"><router-link to="/more-info" class="footer__nav__link">More Information</router-link></li>
-        <li class="footer__nav__item"><router-link to="/get-app" class="footer__nav__link">Get the App</router-link></li>
-        <li class="footer__nav__item"><router-link to="/contact" class="footer__nav__link">Contact Us</router-link></li>
+        <li class="footer__nav__item"><a href="https://routemarket.com/learn-more" class="footer__nav__link">More Information</a></li>
+        <li class="footer__nav__item"><a href="https://play.google.com/store" class="footer__nav__link">Get the App</a></li>
+        <li class="footer__nav__item"><a href="https://routemarket.com/jobs" class="footer__nav__link">Contact Us</a></li>
       </ul>
       <p class="footer__copyright">
         Copyright &copy; {{ new Date().getFullYear() }}, RouteMarket Inc. All rights reserved.​​

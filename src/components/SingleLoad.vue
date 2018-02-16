@@ -38,6 +38,7 @@
                     <load-info
                       isLarge=true
                       :id="load.Id"
+                      :commodity="load.LoadDetails.CommodityType"
                       :title="load.Description"
                       :pickupCity="load.Pickup.Address.locality"
                       :pickupState="load.Pickup.Address.regionCode"

@@ -28,8 +28,9 @@ export default {
     })
       .then(response => utils.handleErrors(response))
       .then((response) => {
-        context.loads = response.body;
-        context.load = response.body.slice(-1)[0]; // eslint-disable-line prefer-destructuring
+        const sortedLoads = response.body.sort((a, b) => (b.Id - a.Id));
+        context.loads = sortedLoads;
+        context.load = sortedLoads[0]; // eslint-disable-line prefer-destructuring
       })
       .catch((error) => {
         if (error.message) {

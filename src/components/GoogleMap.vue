@@ -6,7 +6,7 @@
   .google-map {
     width: 100%;
     height: 285px;
-    margin: 0 auto;
+    margin: auto auto 0;
 
     &--tall {
       height: 300px;
