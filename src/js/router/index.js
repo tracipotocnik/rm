@@ -18,6 +18,11 @@ const router = new VueRouter({
   routes: [
     // routes
     {
+      name: 'home',
+      path: '/',
+      component: Login,
+    },
+    {
       name: 'login',
       path: '/login',
       component: Login,
