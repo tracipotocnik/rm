@@ -54,12 +54,14 @@
 
 <script>
 import auth from './js/auth';
+import router from './js/router';
 
 export default {
   methods: {
     handleLogout() {
       auth.logout();
-      window.location.href = '/';
+      router.push({ name: 'login' });
+      window.location.reload();
     },
     isLoggedIn() {
       return auth.isLoggedIn();

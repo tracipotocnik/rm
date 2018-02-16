@@ -107,6 +107,10 @@
                 </p>
               </div>
               <div class="panel__main panel__main--shipping"></div>
+              <div class="panel__button">
+                <input type="file" id="csvUpload" class="hidden" multiple>
+                <button type="button" class="button button--dark button--csv" @click="uploadFiles" accept=".csv">Upload CSV</button>
+              </div>
             </div>
           </div>
         </div>
@@ -121,6 +125,9 @@
 
   import loads from '../js/loads';
   import loadStates from '../js/loadStates';
+  import shipments from '../js/shipmentUploads';
+  import userInfo from '../js/user';
+  import router from '../js/router';
 
   export default {
     data() {
@@ -132,6 +139,8 @@
         loadingMessage: 'Loading...',
         noLoadMessage: 'Load not found.',
         loadError: false,
+        shipments: [],
+        user: '',
       };
     },
     components: {
@@ -143,6 +152,22 @@
     },
     mounted() {
       loads.getLoads(this);
+      userInfo.getUserInfo(this);
+      shipments.getShipments(this);
+
+      document.querySelector('#csvUpload').addEventListener('change', (event) => {
+        const filesArray = event.target.files;
+        shipments.convertAddShipment(
+          filesArray,
+          this.user.Id,
+          this.user.ContactInfo.Name,
+          this.user.CompanyId,
+          this,
+        );
+        event.target.value = null;
+        router.push({ name: 'shipmentUploads' });
+        return false;
+      });
     },
     methods: {
       findLoad() {
@@ -156,6 +181,9 @@
       },
       loadState(state) {
         return loadStates.convertLoadState(state);
+      },
+      uploadFiles() {
+        document.querySelector('#csvUpload').click();
       },
     },
   };

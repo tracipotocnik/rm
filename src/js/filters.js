@@ -27,6 +27,9 @@ Vue.filter('time', (hours) => {
   const remainder = hours % 24;
   const remainingHours = Math.floor(remainder);
   if (remainingHours > 0) {
+    if (days > 0) {
+      timeString = `${timeString},`;
+    }
     timeString = `${timeString} ${remainingHours}`;
     if (remainingHours > 1) {
       timeString = `${timeString} Hours`;

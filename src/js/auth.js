@@ -20,6 +20,7 @@ export default {
     uuid: auth.getUserUUID(),
     companyId: auth.getCompanyID(),
     username: auth.getUsername(),
+    userType: auth.getUserType(),
   },
 
   login(context, creds) {
@@ -38,6 +39,7 @@ export default {
         auth.clearUserUUID();
         auth.clearCompanyID();
         auth.clearUsername();
+        auth.clearUserType();
 
         this.user.creds = auth.setBasicAuthentication(creds);
         this.user.uuid = response.body.content;
@@ -55,9 +57,13 @@ export default {
         })
           .then(user => utils.handleErrors(user))
           .then((user) => {
-            if (user.body.UserType === 'SHIPPER') {
+            this.user.userType = user.body.UserType;
+            auth.setUserType(this.user.userType);
+
+            if (this.user.userType === 'SHIPPER') {
               this.user.companyId = user.body.CompanyId;
               auth.setCompanyID(this.user.companyId);
+
               if (context.$route.query.dest) {
                 router.push({ name: context.$route.query.dest });
               } else {
@@ -89,7 +95,8 @@ export default {
     if (this.user.creds &&
         this.user.uuid &&
         this.user.companyId &&
-        this.user.username) {
+        this.user.username &&
+        this.user.userType) {
       authenticated = true;
     }
     return authenticated;
@@ -100,5 +107,6 @@ export default {
     auth.clearUserUUID();
     auth.clearCompanyID();
     auth.clearUsername();
+    auth.clearUserType();
   },
 };

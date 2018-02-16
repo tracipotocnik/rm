@@ -4,6 +4,7 @@ const USER_CREDS = 'user_creds';
 const USER_UUID = 'user_uuid';
 const COMPANY_ID = 'company_id';
 const USERNAME = 'username';
+const USER_TYPE = 'user_type';
 
 export default {
   setBasicAuthentication(creds) {
@@ -27,6 +28,10 @@ export default {
     return localStorage.getItem(USERNAME);
   },
 
+  getUserType() {
+    return localStorage.getItem(USER_TYPE);
+  },
+
   clearUserCreds() {
     localStorage.removeItem(USER_CREDS);
   },
@@ -43,6 +48,10 @@ export default {
     localStorage.removeItem(USERNAME);
   },
 
+  clearUserType() {
+    localStorage.removeItem(USER_TYPE);
+  },
+
   setUserCreds(creds) {
     localStorage.setItem(USER_CREDS, creds);
   },
@@ -57,5 +66,9 @@ export default {
 
   setUsername(username) {
     localStorage.setItem(USERNAME, username);
+  },
+
+  setUserType(userType) {
+    localStorage.setItem(USER_TYPE, userType);
   },
 };

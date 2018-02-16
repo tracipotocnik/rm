@@ -33,7 +33,7 @@
                         </g>
                     </svg>
                   </a>
-                  <input type="file" id="csvUpload" multiple>
+                  <input type="file" id="csvUpload" class="hidden" multiple>
                   <button type="button" class="button button--dark button--csv" @click="uploadFiles" accept=".csv">Upload CSV</button>
                   <router-link :to="{ name: 'pendingQuotes'}" class="button button--green">View Quotes</router-link>
                 </div>
@@ -87,16 +87,10 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-  #csvUpload {
-    display: none;
-  }
-</style>
-
 <script>
   import shipments from '../js/shipmentUploads';
-  import userInfo from '../js/user';
   import utils from '../js/utilities/utils';
+  import userInfo from '../js/user';
 
   export default {
     data() {
@@ -110,27 +104,15 @@
       shipments.getShipments(this);
       userInfo.getUserInfo(this);
 
-      // Convert CSV to Binary
       document.querySelector('#csvUpload').addEventListener('change', (event) => {
         const filesArray = event.target.files;
-        Array.from(filesArray).forEach((file) => {
-          utils.getFileDataArray(file).then((data) => {
-            const arrayBuffer = data;
-            const unit8Array = new Uint8Array(arrayBuffer);
-            const array = Array.from(unit8Array);
-
-            const fileInfo = {
-              FileName: file.name.substr(0, file.name.lastIndexOf('.')),
-              UserId: this.user.Id,
-              PosterName: this.user.ContactInfo.Name,
-              Extension: 'csv',
-              CompanyId: this.user.CompanyId,
-              Filedata: array,
-            };
-
-            shipments.submitShipment(this, fileInfo);
-          });
-        });
+        shipments.convertAddShipment(
+          filesArray,
+          this.user.Id,
+          this.user.ContactInfo.Name,
+          this.user.CompanyId,
+          this,
+        );
         event.target.value = null;
         return false;
       });

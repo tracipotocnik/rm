@@ -20,7 +20,13 @@ const router = new VueRouter({
     {
       name: 'home',
       path: '/',
-      component: Login,
+      redirect: () => {
+        const authed = auth.isLoggedIn();
+        if (authed) {
+          return '/shippers';
+        }
+        return '/login';
+      },
     },
     {
       name: 'login',

@@ -52,9 +52,8 @@ export default {
       },
     })
       .then(response => utils.handleErrors(response))
-      .then((response) => {
-        context.shipments.push(response.body);
-        context.$forceUpdate();
+      .then(() => {
+        window.location.reload();
       })
       .catch((error) => {
         if (error.message) {
@@ -63,5 +62,27 @@ export default {
           context.error = 'Error uploading file.';
         }
       });
+  },
+
+  // Convert and add shipment
+  convertAddShipment(filesArray, userId, userName, companyId, context) {
+    Array.from(filesArray).forEach((file) => {
+      utils.getFileDataArray(file).then((data) => {
+        const arrayBuffer = data;
+        const unit8Array = new Uint8Array(arrayBuffer);
+        const array = Array.from(unit8Array);
+
+        const fileInfo = {
+          FileName: file.name.substr(0, file.name.lastIndexOf('.')),
+          UserId: userId,
+          PosterName: userName,
+          Extension: 'csv',
+          CompanyId: companyId,
+          Filedata: array,
+        };
+
+        this.submitShipment(context, fileInfo);
+      });
+    });
   },
 };
