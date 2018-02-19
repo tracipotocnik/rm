@@ -113,6 +113,36 @@
               </div>
             </div>
           </div>
+          <div class="panel-container">
+            <div class="panel">
+              <div class="panel__top">
+                <h2 class="panel__heading">Pending Quotes</h2>
+                <p class="panel__subheading">
+                  <router-link
+                    :to="{ name: 'pendingQuotes' }">
+                    View all
+                    <svg width="7px" height="11px" viewBox="0 0 7 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <g id="Shipper-Logged-In" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-326.000000, -242.000000)" stroke-linecap="square">
+                        <g id="Load-Dashboard" transform="translate(50.000000, 162.000000)" stroke="currentColor">
+                          <g id="Load-Dashboard-Info" transform="translate(0.000000, 22.000000)">
+                            <g id="Header" transform="translate(29.000000, 0.000000)">
+                              <g id="View-All" transform="translate(10.000000, 53.000000)">
+                                <g id="Arrow" transform="translate(238.000000, 5.000000)">
+                                  <path d="M0.277777778,0.333333333 L4.45369344,5.34443213" id="Line"></path>
+                                  <path d="M4.72715502,5.33610803 L0.541969834,10.3472068 L4.72715502,5.33610803 Z" id="Line"></path>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </router-link>
+                </p>
+              </div>
+              <div class="panel__main panel__main--shipping"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

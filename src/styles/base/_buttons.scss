@@ -7,7 +7,7 @@
   font-size: rem-calc(16);
   margin: 0;
   min-width: rem-calc(150);
-  padding: rem-calc(12 10);
+  padding: rem-calc(12 15);
 
   &:hover,
   &:focus {
@@ -24,6 +24,10 @@
   font-size: rem-calc(14);
   min-width: rem-calc(80);
   padding: rem-calc(8);
+}
+
+.button--auto-width {
+  min-width: initial;
 }
 
 .button--dark {

@@ -30,13 +30,18 @@
 
 .dashboard__heading__buttons {
   margin-left: auto;
+  text-align: right;
+
+  .button {
+    margin-bottom: rem-calc(10);
+  }
 }
 
 .dashboard__download-link {
   color: $color-primary;
   margin-right: rem-calc(35);
   position: relative;
-  top: rem-calc(13);
+  top: rem-calc(3);
 
   svg {
     margin-left: rem-calc(5);
@@ -81,5 +86,13 @@
 
       @include primary-font-bold;
     }
+  }
+}
+
+.dashboard__bottom {
+  padding: rem-calc(20 30);
+
+  p:last-child {
+    margin-bottom: 0;
   }
 }
