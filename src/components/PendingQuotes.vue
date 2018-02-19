@@ -64,10 +64,10 @@
                   <td>
                     <strong v-if="load.statusMessage">
                       <span v-if="load.statusMessage === 'true'" class="text-green">
-                        Approve
+                        Approved
                       </span>
                       <span v-else class="text-red">
-                        Reject
+                        Rejected
                       </span>
                     </strong>
                     <div v-else class="no-wrap">
