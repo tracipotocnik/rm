@@ -79,7 +79,7 @@ router.beforeEach((to, from, next) => {
     next({ name: '404' });
   } else if (authRequired && !authed) {
     auth.logout();
-    next({ name: 'login', query: { dest: to.name } });
+    next({ name: 'login', query: { dest: to.path } });
   } else {
     next();
   }

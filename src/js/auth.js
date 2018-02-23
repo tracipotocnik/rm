@@ -65,7 +65,8 @@ export default {
               auth.setCompanyID(this.user.companyId);
 
               if (context.$route.query.dest) {
-                router.push({ name: context.$route.query.dest });
+                router.push({ path: context.$route.query.dest });
+                window.location.reload();
               } else {
                 router.push({ name: 'shippers' });
               }

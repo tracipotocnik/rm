@@ -11,7 +11,7 @@ Vue.use(VueResource);
 const API_URL = `${constants.APP_BACKEND_URL}${constants.API_VERSION}`;
 const LOAD_URL = '/load/allLoads?isShipper=true&userUuid=';
 const SINGLE_LOAD_URL = '/load/?loadUuid=';
-const LOAD_LOCATION_URL = '/loadStatus/location?loadUuid=';
+const LOAD_LOCATION_URL = '/tracking/loadLocation?loadUuid=';
 const PENDING_LOADS_URL = '/pricing/pendingLoads?companyId=';
 const REMOVE_LOAD_URL = '/load/delete';
 
