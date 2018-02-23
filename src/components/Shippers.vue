@@ -140,7 +140,7 @@
                   </router-link>
                 </p>
               </div>
-              <div class="panel__main panel__main--shipping"></div>
+              <div class="panel__main panel__main--pending"></div>
             </div>
           </div>
         </div>

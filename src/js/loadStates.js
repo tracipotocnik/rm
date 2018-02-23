@@ -16,16 +16,16 @@ export default {
       state === 'ROUTEDGENERATED') {
       return constants.ShipperPageTypes.SHIPPER_INTRANSIT;
     } else if (
-      state === 'LOSTDESTROYED' ||
       state === 'DELIVERED' ||
       state === 'DELIVEREDCONFIRMED' ||
       state === 'SHIPPERINVOICED' ||
       state === 'CARRIERPAID') {
       return constants.ShipperPageTypes.SHIPPER_DELIVERED;
     } else if (
+      state === 'LOSTDESTROYED' ||
       state === 'SHIPPERPAID' ||
       state === 'LOADCOMPLETED') {
-      return constants.ShipperPageTypes.COMPLETED;
+      return constants.ShipperPageTypes.SHIPPER_COMPLETED;
     }
     return 'N/A';
   },

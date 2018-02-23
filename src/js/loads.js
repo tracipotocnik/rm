@@ -31,6 +31,10 @@ export default {
         const sortedLoads = response.body.sort((a, b) => (b.Id - a.Id));
         context.loads = sortedLoads;
         context.load = sortedLoads[0]; // eslint-disable-line prefer-destructuring
+        sortedLoads.forEach((load) => {
+          console.log(`ID: ${load.Id}`); // eslint-disable-line no-console
+          console.log(`Load State: ${load.LoadState}`); // eslint-disable-line no-console
+        });
       })
       .catch((error) => {
         if (error.message) {
