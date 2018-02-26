@@ -41,6 +41,8 @@ export default {
     const USER_UUID = auth.getUserUUID();
     const COMPANY_ID = auth.getCompanyID();
     const submitShipmentUrl = API_URL + SHIPMENTS_SUBMIT_URL;
+    const loadingClass = 'is-loading';
+    document.body.classList.add(loadingClass);
     Vue.http.post(submitShipmentUrl, fileData, {
       headers: {
         'Content-Type': 'application/json',
@@ -53,6 +55,7 @@ export default {
     })
       .then(response => utils.handleErrors(response))
       .then(() => {
+        document.body.classList.remove(loadingClass);
         window.location.reload();
       })
       .catch((error) => {
@@ -61,6 +64,7 @@ export default {
         } else if (!error.ok && error.bodyText) {
           context.error = 'Error uploading file.';
         }
+        document.body.classList.remove(loadingClass);
       });
   },
 

@@ -108,10 +108,28 @@ export default {
       };
       this.map = new google.maps.Map(element, options);
       // Create a renderer for directions and bind it to the map.
+      const directionsDisplayCanvas = new google.maps.DirectionsRenderer({
+        map: this.map,
+        suppressMarkers: true,
+        polylineOptions: new google.maps.Polyline({
+          strokeWeight: 0,
+        }),
+      });
       const directionsDisplay = new google.maps.DirectionsRenderer({
         map: this.map,
         suppressMarkers: true,
       });
+      const drivingPath = {
+        origin: new google.maps.LatLng(
+          this.markerCoordinates[0].latitude,
+          this.markerCoordinates[0].longitude,
+        ),
+        destination: new google.maps.LatLng(
+          this.markerCoordinates[2].latitude,
+          this.markerCoordinates[2].longitude,
+        ),
+        travelMode: 'DRIVING',
+      };
       const routeData = {
         origin: new google.maps.LatLng(
           this.markerCoordinates[0].latitude,
@@ -138,6 +156,13 @@ export default {
         );
       }
       directionsService.route(routeData, (response, status) => {
+        // Route the directions and pass the response to a function to create
+        // markers for each step.
+        if (status === 'OK') {
+          directionsDisplayCanvas.setDirections(response);
+        }
+      });
+      directionsService.route(drivingPath, (response, status) => {
         // Route the directions and pass the response to a function to create
         // markers for each step.
         if (status === 'OK') {
@@ -179,6 +204,7 @@ export default {
         },
         map: mapObj,
         title: 'Current Location',
+        icon: require('../assets/img/gps.png'), // eslint-disable-line global-require
       });
     },
   },

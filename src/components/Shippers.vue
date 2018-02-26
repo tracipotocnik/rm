@@ -42,8 +42,10 @@
               </div>
               <div class="panel__details">
                 <p v-if="error">{{ error }}</p>
-                <p v-if="!load && !loadError">{{ loadingMessage }}</p>
-                <p v-if="!load && loadError">{{ noLoadMessage }}</p>
+                <p v-if="!load && !loadError">
+                  <img src="../assets/img/search-spinner.gif" class="loading-gif">
+                </p>
+                <p v-if="!load && loadError">Load not found.</p>
                 <load-info
                   v-if="load"
                   :status="loadState(load.LoadState)"
@@ -166,8 +168,6 @@
         loads: '',
         load: '',
         loadId: '',
-        loadingMessage: 'Loading...',
-        noLoadMessage: 'Load not found.',
         loadError: false,
         shipments: [],
         user: '',

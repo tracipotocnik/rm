@@ -1,0 +1,35 @@
+.is-loading {
+  overflow: hidden;
+
+  &:before {
+    background: rgba(0, 0, 0, 0.7);
+    content: "";
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+  }
+
+  &:after {
+    background-image: url('assets/img/search-spinner.gif');
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
+    content: '';
+    height: 80px;
+    left: 50%;
+    margin: 0 auto;
+    position: fixed;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 80px;
+    z-index: 999;
+  }
+}
+
+.loading-gif {
+  display: block;
+  margin: rem-calc(30) auto;
+  width: rem-calc(70);
+}

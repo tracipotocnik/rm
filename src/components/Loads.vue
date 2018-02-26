@@ -46,10 +46,10 @@
                   <p>{{ error }}</p>
                 </div>
                 <div class="cell" v-if="!filteredLoads.length && !loadError">
-                  <p>{{ loadingMessage }}</p>
+                  <img src="../assets/img/search-spinner.gif" class="loading-gif">
                 </div>
                 <div class="cell" v-if="!filteredLoads && loadError">
-                  <p>{{ noLoadMessage }}</p>
+                  <p>No results found.</p>
                 </div>
                 <div class="medium-6 large-4 cell" v-for="(load, index) in filteredLoads">
                   <div class="load-card">
@@ -108,8 +108,6 @@
         loadId: '',
         filteredState: 'Waiting',
         shipperStates: constants.ShipperPageTypes,
-        loadingMessage: 'Loading...',
-        noLoadMessage: 'No results found.',
         loadError: false,
         currentLoad: '',
         currentIndex: '',
