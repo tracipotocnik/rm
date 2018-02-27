@@ -10,9 +10,15 @@
     color: inherit;
   }
 
+  .table__divider {
+    td {
+      padding-top: 0;
+    }
+  }
+
   th,
   td {
-    padding: rem-calc(15 5 0);
+    padding: rem-calc(8 5);
     text-align: center;
 
     @include primary-font;
@@ -30,5 +36,9 @@
   th {
     padding-top: 0;
     padding-bottom: rem-calc(5);
+  }
+
+  .highlighted {
+    background: rgba(0,0,0,.07);
   }
 }

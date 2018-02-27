@@ -26,6 +26,7 @@ export default {
       .then(response => utils.handleErrors(response))
       .then((response) => {
         context.shipments = response.body;
+        context.shipmentsTotal = context.shipments.length;
       })
       .catch((error) => {
         if (error.message) {
@@ -54,9 +55,9 @@ export default {
       },
     })
       .then(response => utils.handleErrors(response))
-      .then(() => {
+      .then((response) => {
         document.body.classList.remove(loadingClass);
-        window.location.reload();
+        context.shipments.push(response.body);
       })
       .catch((error) => {
         if (error.message) {

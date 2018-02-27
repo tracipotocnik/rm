@@ -76,7 +76,12 @@
                   <th>Valid Shipments</th>
                   <th>Total Shipments</th>
                 </thead>
-                <tr v-for="(shipment, index) in sortedShipments">
+                <tr class="table__divider">
+                  <td colspan="5"></td>
+                </tr>
+                <tr
+                  v-for="(shipment, index) in sortedShipments"
+                  :class="{'highlighted' : (sortedShipments.length - shipmentsTotal) >= (index + 1)}">
                   <td>
                     <a :href="convertToCSV(shipment.Filedata)" :download="shipment.FileName + '.' + shipment.Extension">
                       {{ shipment.FileName }}.{{ shipment.Extension }}
@@ -122,6 +127,7 @@
       return {
         error: '',
         shipments: [],
+        shipmentsTotal: '',
         user: '',
       };
     },
@@ -131,6 +137,7 @@
 
       document.querySelector('#csvUpload').addEventListener('change', (event) => {
         const filesArray = event.target.files;
+        this.shipmentsTotal = this.shipments.length;
         shipments.convertAddShipment(
           filesArray,
           this.user.Id,
