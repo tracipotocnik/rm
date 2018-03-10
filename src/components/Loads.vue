@@ -26,7 +26,8 @@
                   <input type="text"
                     placeholder="Enter Load ID #"
                     v-model="loadId"
-                    v-on:keyup="onLoadIdFilter">
+                    v-on:keyup="onLoadIdFilter"
+                    v-if="!noLoadsFound">
                 </div>
                 <div class="dashboard__tabs-wrapper">
                   <ul class="dashboard__tabs">
@@ -45,11 +46,14 @@
                 <div class="cell" v-if="error">
                   <p>{{ error }}</p>
                 </div>
-                <div class="cell" v-if="!filteredLoads.length && !loadError">
+                <div class="cell" v-if="!filteredLoads.length && !loadError && !noLoadsFound">
                   <img src="../assets/img/search-spinner.gif" class="loading-gif">
                 </div>
                 <div class="cell" v-if="!filteredLoads && loadError">
                   <p>No results found.</p>
+                </div>
+                <div class="cell" v-if="!load && noLoadsFound">
+                  <p><strong>No loads found.</strong></p>
                 </div>
                 <div class="medium-6 large-4 cell" v-for="(load, index) in filteredLoads">
                   <div class="load-card">
@@ -111,6 +115,8 @@
         loadError: false,
         currentLoad: '',
         currentIndex: '',
+        noLoadsFound: false,
+        load: '',
       };
     },
     components: {

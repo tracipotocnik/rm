@@ -31,6 +31,11 @@ export default {
         const sortedLoads = response.body.sort((a, b) => (b.Id - a.Id));
         context.loads = sortedLoads;
         context.load = sortedLoads[0]; // eslint-disable-line prefer-destructuring
+        if (context.loads.length > 0) {
+          context.noLoadsFound = false;
+        } else {
+          context.noLoadsFound = true;
+        }
       })
       .catch((error) => {
         if (error.message) {

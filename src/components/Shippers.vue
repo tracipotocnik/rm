@@ -31,7 +31,7 @@
                   </router-link>
                 </p>
               </div>
-              <div class="panel__filter">
+              <div class="panel__filter" v-if="!noLoadsFound">
                 <input type="text"
                   placeholder="Enter Load ID #"
                   @keyup.enter="findLoad"
@@ -42,9 +42,10 @@
               </div>
               <div class="panel__details">
                 <p v-if="error">{{ error }}</p>
-                <p v-if="!load && !loadError">
+                <p v-if="!load && !loadError && !noLoadsFound">
                   <img src="../assets/img/search-spinner.gif" class="loading-gif">
                 </p>
+                <p v-if="noLoadsFound"><strong>No loads found.</strong></p>
                 <p v-if="!load && loadError">Load not found.</p>
                 <load-info
                   v-if="load"
@@ -169,6 +170,7 @@
         load: '',
         loadId: '',
         loadError: false,
+        noLoadsFound: false,
         shipments: [],
         user: '',
       };
