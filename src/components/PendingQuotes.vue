@@ -42,7 +42,7 @@
               <table class="table">
                 <thead>
                   <th class="align-left">Load ID</th>
-                  <th class="align-left">Commodity &amp; Description</th>
+                  <th class="align-left">Commodity &amp; Customer Reference</th>
                   <th>Date Uploaded</th>
                   <th>Price Quote</th>
                   <th>Tender / Reject</th>
@@ -53,7 +53,7 @@
                   </td>
                   <td class="align-left">
                     {{ load.LoadDetails.CommodityType }},
-                    {{ load.Description }}
+                    {{ load.CustomerReferenceNumber }}
                   </td>
                   <td>
                     <span class="no-wrap">{{ load.LastUpdatedUTC | dateShort }}</span>

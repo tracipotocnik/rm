@@ -39,7 +39,7 @@
                       isLarge=true
                       :id="load.Id"
                       :commodity="load.LoadDetails.CommodityType"
-                      :title="load.Description"
+                      :title="load.CustomerReferenceNumber"
                       :pickupCity="load.Pickup.Address.locality"
                       :pickupState="load.Pickup.Address.regionCode"
                       :pickupDateStart="load.PickupWindowStartUTC"
