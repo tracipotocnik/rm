@@ -45,7 +45,7 @@
                   <th class="align-left">Commodity &amp; Description</th>
                   <th>Date Uploaded</th>
                   <th>Price Quote</th>
-                  <th>Approve / Reject</th>
+                  <th>Tender / Reject</th>
                 </thead>
                 <tr v-for="(load, index) in loads">
                   <td class="align-left">
@@ -64,7 +64,7 @@
                   <td>
                     <strong v-if="load.statusMessage">
                       <span v-if="load.statusMessage === 'true'" class="text-green">
-                        Approved
+                        Tendered
                       </span>
                       <span v-else class="text-red">
                         Rejected
@@ -79,7 +79,7 @@
                       <button
                         class="button button--green button--small"
                         @click="approveRejectLoad(load, index, true)">
-                        Approve
+                        Tender
                       </button>
                     </div>
                   </td>
