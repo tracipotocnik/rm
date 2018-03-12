@@ -50,7 +50,7 @@
                 <load-info
                   v-if="load"
                   :status="loadState(load.LoadState)"
-                  :title="load.Description"
+                  :title="load.CustomerReferenceNumber"
                   :commodity="load.LoadDetails.CommodityType"
                   :distance="load.DistanceM"
                   :age="load.AgeHrs"

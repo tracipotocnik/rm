@@ -60,7 +60,7 @@
                     <load-info
                       :id="load.Id"
                       :commodity="load.LoadDetails.CommodityType"
-                      :title="load.Description"
+                      :title="load.CustomerReferenceNumber"
                       :distance="load.DistanceM"
                       :age="load.AgeHrs"
                       :price="load.Rate.ShipperTotal"
