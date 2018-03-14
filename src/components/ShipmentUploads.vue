@@ -10,7 +10,7 @@
               <div class="dashboard__heading">
                 <h1 class="dashboard__title">Shipment Uploads</h1>
                 <div class="dashboard__heading__buttons">
-                  <a class="dashboard__download-link" href="https://api.routemarket.com:8443/v1/load/template">
+                  <a class="dashboard__download-link" href="https://api-test.routemarket.com:8443/v1/load/template">
                     CSV Template
                     <svg width="17px" height="19px" viewBox="0 0 17 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
