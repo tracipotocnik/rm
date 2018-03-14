@@ -43,7 +43,7 @@
       <ul class="footer__nav">
         <li class="footer__nav__item"><a href="https://routemarket.com/learn-more" class="footer__nav__link">More Information</a></li>
         <li class="footer__nav__item"><a href="https://play.google.com/store" class="footer__nav__link">Get the App</a></li>
-        <li class="footer__nav__item"><a href="https://routemarket.com/jobs" class="footer__nav__link">Contact Us</a></li>
+        <li class="footer__nav__item"><a href="https://routemarket.com/contact-us" class="footer__nav__link">Contact Us</a></li>
       </ul>
       <p class="footer__copyright">
         Copyright &copy; {{ new Date().getFullYear() }}, RouteMarket Inc. All rights reserved.​​
