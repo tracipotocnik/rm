@@ -90,7 +90,7 @@
           <div class="dashboard__bottom">
             <p class="text-legal">By approving these quotes, you are agreeing
               to the RouteMarket
-              <a target="_blank" href="https://api.routemarket.com:8443/shipper-terms-of-use.html">
+              <a target="_blank" href="https://api-test.routemarket.com:8443/shipper-terms-of-use.html">
                 Shipper Terms of Use</a>,
               and agree to ship this
               freight with a RouteMarket carrier for our quoted rate.</p>
