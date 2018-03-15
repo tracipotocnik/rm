@@ -23,6 +23,7 @@
           </li>
           <li class="nav__item"><a href="https://routemarket.com/carriers" class="nav__link">Carriers</a></li>
           <li class="nav__item"><a href="https://routemarket.com/learn-more" class="nav__link">Learn More</a></li>
+          <li class="nav__item"><a href="https://routemarket.com/jobs" class="nav__link">Jobs</a></li>
           <!-- <li class="nav__item" v-show="!isLoggedIn()">
             <router-link :to="{ name: 'login'}" class="nav__link">Sign Up</router-link>
           </li> -->
@@ -42,7 +43,7 @@
     <footer class="footer">
       <ul class="footer__nav">
         <li class="footer__nav__item"><a href="https://routemarket.com/learn-more" class="footer__nav__link">More Information</a></li>
-        <li class="footer__nav__item"><a href="https://play.google.com/store" class="footer__nav__link">Get the App</a></li>
+        <li class="footer__nav__item"><a href="https://play.google.com/store/apps/details?id=com.routemarket.routemarket" class="footer__nav__link">Get the App</a></li>
         <li class="footer__nav__item"><a href="https://routemarket.com/contact-us" class="footer__nav__link">Contact Us</a></li>
       </ul>
       <p class="footer__copyright">
