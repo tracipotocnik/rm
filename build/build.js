@@ -1,6 +1,8 @@
 require('./check-versions')()
 
-process.env.NODE_ENV = 'production'
+process.env.NODE_ENV = process.env.DEPLOY_PRIME_URL === 'https://master--routemarket.netlify.com'
+  ? 'testing'
+  : 'production'
 
 var ora = require('ora')
 var rm = require('rimraf')
