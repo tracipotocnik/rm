@@ -1,11 +1,11 @@
 require('./check-versions')()
 
 var isBrowser = typeof window !== 'undefined';
-process.env.NODE_ENV = isBrowser && window.location.hostname === 'master--routemarket.netlify.com'
+process.env.NODE_ENV = isBrowser && global.window.location.hostname === 'master--routemarket.netlify.com'
   ? 'testing'
   : 'production'
 console.log('is browser: ' + isBrowser);
-console.log(window.location.hostname);
+console.log(global.window.location.hostname);
 console.log(process.env.NODE_ENV);
 
 var ora = require('ora')
