@@ -36,6 +36,7 @@ export default {
         } else {
           context.noLoadsFound = true;
         }
+        console.log(API_URL); // eslint-disable-line no-console
       })
       .catch((error) => {
         if (error.message) {

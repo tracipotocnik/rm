@@ -1,6 +1,9 @@
 require('./check-versions')()
 
-process.env.NODE_ENV = 'production'
+var isBrowser = typeof window !== 'undefined';
+process.env.NODE_ENV = isBrowser && window.location.hostname === 'master--routemarket.netlify.com'
+  ? 'testing'
+  : 'production'
 
 var ora = require('ora')
 var rm = require('rimraf')
