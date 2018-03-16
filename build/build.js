@@ -1,10 +1,9 @@
 require('./check-versions')()
 
-var isBrowser = typeof window !== 'undefined';
-process.env.NODE_ENV = __dirname === 'master--routemarket.netlify.com'
+process.env.NODE_ENV = BRANCH === 'master'
   ? 'testing'
   : 'production'
-console.log('dirname ' + __dirname);
+console.log(BRANCH);
 console.log(process.env.NODE_ENV);
 
 var ora = require('ora')
