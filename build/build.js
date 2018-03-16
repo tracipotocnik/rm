@@ -1,6 +1,7 @@
 require('./check-versions')()
 
-console.log('Node Environment!! ' + process.env.NODE_ENV);
+console.log('Node Environment!! ' + process.env);
+console.log('Node Environment!! ' + process);
 process.env.NODE_ENV = 'production'
 
 var ora = require('ora')
