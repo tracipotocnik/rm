@@ -111,8 +111,8 @@
               </div>
               <div class="panel__main panel__main--shipping"></div>
               <div class="panel__button">
-                <input type="file" id="csvUpload" class="hidden" multiple>
-                <button type="button" class="button button--dark button--csv" @click="uploadFiles" accept=".csv">Upload CSV</button>
+                <input type="file" id="fileUpload" class="hidden" multiple>
+                <button type="button" class="button button--dark button--csv" @click="uploadFiles" accept=".csv, .xls, .xlsx">Upload CSV</button>
               </div>
             </div>
           </div>
@@ -187,7 +187,7 @@
       userInfo.getUserInfo(this);
       shipments.getShipments(this);
 
-      document.querySelector('#csvUpload').addEventListener('change', (event) => {
+      document.querySelector('#fileUpload').addEventListener('change', (event) => {
         const filesArray = event.target.files;
         shipments.convertAddShipment(
           filesArray,
@@ -215,7 +215,7 @@
         return loadStates.convertLoadState(state);
       },
       uploadFiles() {
-        document.querySelector('#csvUpload').click();
+        document.querySelector('#fileUpload').click();
       },
     },
   };

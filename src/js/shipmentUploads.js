@@ -73,15 +73,19 @@ export default {
   convertAddShipment(filesArray, userId, userName, companyId, context) {
     Array.from(filesArray).forEach((file) => {
       utils.getFileDataArray(file).then((data) => {
+        const filename = file.name;
+        const fileExtension = filename
+          .substring(filename.lastIndexOf('.') + 1, filename.length) || filename;
+
         const arrayBuffer = data;
         const unit8Array = new Uint8Array(arrayBuffer);
         const array = Array.from(unit8Array);
 
         const fileInfo = {
-          FileName: file.name.substr(0, file.name.lastIndexOf('.')),
+          FileName: filename.substr(0, filename.lastIndexOf('.')),
           UserId: userId,
           PosterName: userName,
-          Extension: 'csv',
+          Extension: fileExtension,
           CompanyId: companyId,
           Filedata: array,
         };

@@ -10,7 +10,30 @@
               <div class="dashboard__heading">
                 <h1 class="dashboard__title">Shipment Uploads</h1>
                 <div class="dashboard__heading__buttons">
-                  <a class="dashboard__download-link" href="https://api-test.routemarket.com:8443/v1/load/template">
+                  <a class="dashboard__download-link" href="https://api.routemarket.com:8443/v1/load/template/xlsx">
+                    Excel Template
+                    <svg width="17px" height="19px" viewBox="0 0 17 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+                            <g id="Shipment-Uploads" transform="translate(-928.000000, -205.000000)" stroke="currentColor" stroke-width="2">
+                                <g transform="translate(55.000000, 162.000000)" id="Load-Dashboard-Copy-2">
+                                    <g>
+                                        <g id="Buttons" transform="translate(757.000000, 25.000000)">
+                                            <g id="Download-CSV-Template" transform="translate(0.000000, 19.000000)">
+                                                <path d="M117.5,16.5 L131.5,16.5" id="Line-4"></path>
+                                                <g id="Arrow" transform="translate(124.500000, 6.500000) rotate(-270.000000) translate(-124.500000, -6.500000) translate(118.000000, 0.000000)">
+                                                    <path d="M7,0 L13,6" id="Line"></path>
+                                                    <path d="M0.5,6 L12,6" id="Line-Copy"></path>
+                                                    <path d="M13,6 L7,13 L13,6 Z" id="Line"></path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                  </a>
+                  <a class="dashboard__download-link" href="https://api.routemarket.com:8443/v1/load/template/csv">
                     CSV Template
                     <svg width="17px" height="19px" viewBox="0 0 17 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
@@ -34,8 +57,8 @@
                     </svg>
                   </a>
 
-                  <input type="file" id="csvUpload" class="hidden" multiple>
-                  <button type="button" class="button button--dark button--csv" @click="uploadFiles" accept=".csv">Upload CSV</button>
+                  <input type="file" id="fileUpload" class="hidden" multiple accept=".csv, .xls, .xlsx">
+                  <button type="button" class="button button--dark button--csv" @click="uploadFiles">Upload Shipment</button>
 
                   <router-link :to="{ name: 'pendingQuotes'}" class="button button--green">View Quotes</router-link>
 
@@ -83,7 +106,13 @@
                   v-for="(shipment, index) in sortedShipments"
                   :class="{'highlighted' : (sortedShipments.length - shipmentsTotal) >= (index + 1)}">
                   <td>
-                    <a :href="convertToCSV(shipment.Filedata)" :download="shipment.FileName + '.' + shipment.Extension">
+                    <a v-if="shipment.Extension === 'csv'"
+                      :href="convertToCSV(shipment.Filedata)"
+                      :download="shipment.FileName + '.' + shipment.Extension">
+                      {{ shipment.FileName }}.{{ shipment.Extension }}
+                    </a>
+                    <a v-else href="#"
+                      @click="convertToExcel(shipment.Filedata, `${shipment.FileName}.${shipment.Extension}`)">
                       {{ shipment.FileName }}.{{ shipment.Extension }}
                     </a>
                   </td>
@@ -118,6 +147,8 @@
 </template>
 
 <script>
+  import XLSX from 'xlsx';
+
   import shipments from '../js/shipmentUploads';
   import utils from '../js/utilities/utils';
   import userInfo from '../js/user';
@@ -135,7 +166,7 @@
       shipments.getShipments(this);
       userInfo.getUserInfo(this);
 
-      document.querySelector('#csvUpload').addEventListener('change', (event) => {
+      document.querySelector('#fileUpload').addEventListener('change', (event) => {
         const filesArray = event.target.files;
         this.shipmentsTotal = this.shipments.length;
         shipments.convertAddShipment(
@@ -151,15 +182,25 @@
     },
     methods: {
       uploadFiles() {
-        document.querySelector('#csvUpload').click();
+        document.querySelector('#fileUpload').click();
       },
 
       // Convert to CSV
       convertToCSV(fileData) {
         const fileDataString = utils.bin2String(fileData);
-        const csvContent = `data:text/csv;charset=utf-8,${fileDataString}`;
-        const encodedUri = encodeURI(csvContent);
+        const fileContent = `data:text/csv;charset=utf-8,${fileDataString}`;
+        const encodedUri = encodeURI(fileContent);
         return encodedUri;
+      },
+
+      // Convert to Excel
+      convertToExcel(fileData, filename) {
+        try {
+          const excelSheet = XLSX.read(fileData, { type: 'buffer' });
+          XLSX.writeFile(excelSheet, filename);
+        } catch (err) {
+          console.log(err); // eslint-disable-line no-console
+        }
       },
 
       successCount(arrayObj) {
