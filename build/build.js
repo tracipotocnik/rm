@@ -1,9 +1,9 @@
 require('./check-versions')()
 
-process.env.NODE_ENV = BRANCH === 'master'
+process.env.NODE_ENV = NETLIFY_BRANCH === 'master'
   ? 'testing'
   : 'production'
-console.log(BRANCH);
+console.log(NETLIFY_BRANCH);
 console.log(process.env.NODE_ENV);
 
 var ora = require('ora')
