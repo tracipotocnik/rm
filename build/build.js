@@ -1,7 +1,7 @@
 require('./check-versions')()
 
 process.env.NODE_ENV = $NODE_ENV
-  ? NODE_ENV
+  ? $NODE_ENV
   : 'production'
 console.log('Node Environment!! ' + $NODE_ENV);
 
