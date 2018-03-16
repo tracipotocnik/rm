@@ -4,7 +4,7 @@ var isBrowser = typeof window !== 'undefined';
 process.env.NODE_ENV = __dirname === 'master--routemarket.netlify.com'
   ? 'testing'
   : 'production'
-console.log(__dirname);
+console.log('dirname ' + __dirname);
 console.log(process.env.NODE_ENV);
 
 var ora = require('ora')
