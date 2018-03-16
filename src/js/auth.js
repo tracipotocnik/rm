@@ -13,8 +13,6 @@ const API_URL = `${constants.APP_BACKEND_URL}${constants.API_VERSION}`;
 const LOGIN_URL = '/user/testAuthentication?username=';
 const USER_URL = '/user?username=';
 
-console.log(API_URL); // eslint-disable-line no-console
-
 export default {
   // User object will let us check authentication status
   user: {
