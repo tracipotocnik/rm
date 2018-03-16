@@ -1,9 +1,7 @@
 require('./check-versions')()
 
-process.env.NODE_ENV = $NODE_ENV
-  ? $NODE_ENV
-  : 'production'
-console.log('Node Environment!! ' + $NODE_ENV);
+console.log('Node Environment!! ' + process.env.NODE_ENV);
+process.env.NODE_ENV = 'production'
 
 var ora = require('ora')
 var rm = require('rimraf')
