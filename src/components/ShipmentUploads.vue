@@ -10,7 +10,7 @@
               <div class="dashboard__heading">
                 <h1 class="dashboard__title">Shipment Uploads</h1>
                 <div class="dashboard__heading__buttons">
-                  <a class="dashboard__download-link" href="https://api.routemarket.com:8443/v1/load/template/xlsx">
+                  <a class="dashboard__download-link" :href="apiUrl + '/load/template/xlsx'">
                     Excel Template
                     <svg width="17px" height="19px" viewBox="0 0 17 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
@@ -33,7 +33,7 @@
                         </g>
                     </svg>
                   </a>
-                  <a class="dashboard__download-link" href="https://api.routemarket.com:8443/v1/load/template/csv">
+                  <a class="dashboard__download-link" :href="apiUrl + '/load/template/csv'">
                     CSV Template
                     <svg width="17px" height="19px" viewBox="0 0 17 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
@@ -149,6 +149,7 @@
 <script>
   import XLSX from 'xlsx';
 
+  import { APP_BACKEND_URL, API_VERSION } from '../js/constants';
   import shipments from '../js/shipmentUploads';
   import utils from '../js/utilities/utils';
   import userInfo from '../js/user';
@@ -160,6 +161,7 @@
         shipments: [],
         shipmentsTotal: '',
         user: '',
+        apiUrl: `${APP_BACKEND_URL}${API_VERSION}`,
       };
     },
     mounted() {

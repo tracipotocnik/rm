@@ -25,6 +25,14 @@ export default {
     return result;
   },
 
+  string2Bin(string) {
+    let result = '';
+    for (let i = 0; i < string.length; i++) { // eslint-disable-line no-plusplus
+      result += `${string[i].charCodeAt(0).toString(2)} `;
+    }
+    return result;
+  },
+
   date(time, timezone) {
     if ((!time && time !== 0) || !timezone) return '';
     const date = moment(time).tz(timezone).format('ddd, M/D');
